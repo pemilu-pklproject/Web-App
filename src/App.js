@@ -1,10 +1,4 @@
-import './App.css';
-import './assets/css/Nucleo-icons.css';
-import './assets/css/Nucleo-svg.css';
-import './assets/css/Corporate-ui-dashboard.css';
-import './assets/css/Nucleo-svg.css';
 import {Helmet} from "react-helmet";
-
 
 function App() {
   return (

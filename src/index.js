@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './App.css';
+import './assets/css/nucleo-icons.css';
+import './assets/css/nucleo-svg.css';
+import './assets/css/corporate-ui-dashboard.css';
+import './assets/css/nucleo-svg.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
