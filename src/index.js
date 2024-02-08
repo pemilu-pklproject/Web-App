@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import "./assets/css/nucleo-icons.css";
-import "./assets/css/nucleo-svg.css";
-import "./assets/css/nucleo-svg.css";
-import "./assets/css/argon-dashboard.css?v=2.0.4";
+// import "./assets/css/nucleo-icons.css";
+// import "./assets/css/nucleo-svg.css";
+// import "./assets/css/nucleo-svg.css";
+// import "./assets/css/argon-dashboard.css?v=2.0.4";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

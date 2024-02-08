@@ -7336,7 +7336,7 @@ fieldset:disabled .btn {
     flex-direction: column;
     max-width: 100%;
     color: var(--bs-offcanvas-color);
-    visibility: hidden;
+    /* visibility: hidden; */
     background-color: var(--bs-offcanvas-bg);
     background-clip: padding-box;
     outline: 0;
@@ -7428,7 +7428,7 @@ fieldset:disabled .btn {
     flex-direction: column;
     max-width: 100%;
     color: var(--bs-offcanvas-color);
-    visibility: hidden;
+    /* visibility: hidden; */
     background-color: var(--bs-offcanvas-bg);
     background-clip: padding-box;
     outline: 0;
@@ -7520,7 +7520,7 @@ fieldset:disabled .btn {
     flex-direction: column;
     max-width: 100%;
     color: var(--bs-offcanvas-color);
-    visibility: hidden;
+    /* visibility: hidden; */
     background-color: var(--bs-offcanvas-bg);
     background-clip: padding-box;
     outline: 0;
@@ -7612,7 +7612,7 @@ fieldset:disabled .btn {
     flex-direction: column;
     max-width: 100%;
     color: var(--bs-offcanvas-color);
-    visibility: hidden;
+    /* visibility: hidden; */
     background-color: var(--bs-offcanvas-bg);
     background-clip: padding-box;
     outline: 0;
@@ -7704,7 +7704,7 @@ fieldset:disabled .btn {
     flex-direction: column;
     max-width: 100%;
     color: var(--bs-offcanvas-color);
-    visibility: hidden;
+    /* visibility: hidden; */
     background-color: var(--bs-offcanvas-bg);
     background-clip: padding-box;
     outline: 0;
@@ -7795,7 +7795,7 @@ fieldset:disabled .btn {
   flex-direction: column;
   max-width: 100%;
   color: var(--bs-offcanvas-color);
-  visibility: hidden;
+  /* visibility: hidden; */
   background-color: var(--bs-offcanvas-bg);
   background-clip: padding-box;
   outline: 0;
@@ -23510,7 +23510,7 @@ hr.horizontal.gray-light {
   display: none;
 }
 
-/* @media (min-width: 1200px) {
+@media (min-width: 1200px) {
   .g-sidenav-hidden.rtl .main-content {
     margin-right: 6rem !important;
   }
@@ -23646,7 +23646,7 @@ hr.horizontal.gray-light {
     width: auto;
     height: auto;
   }
-} */
+}
 
 .nav.nav-pills {
   background: #f8f9fa;

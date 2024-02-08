@@ -1,14 +1,18 @@
-const Navbar = () => {
-    return ( 
+import { Link } from "react-router-dom";
 
-        <nav className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+const Navbar = (props) => {
+    const active = props.active;
+    const title = props.title
+    return ( 
+    <div>
+      <nav className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
         <div className="container-fluid py-1 px-3">
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-              <li className="breadcrumb-item text-sm"><a className="opacity-5 text-white" href="javascript:;">Pages</a></li>
-              <li className="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
+              <li className="breadcrumb-item text-sm"><a className="opacity-5 text-white" href="javascript:;">Admin</a></li>
+              <li className="breadcrumb-item text-sm text-white active" aria-current="page">{title}</li>
             </ol>
-            <h6 className="font-weight-bolder text-white mb-0">Dashboard</h6>
+            <h6 className="font-weight-bolder text-white mb-0">{title}</h6>
           </nav>
           <div className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
             <div className="ms-md-auto pe-md-3 d-flex align-items-center"></div>
@@ -19,7 +23,7 @@ const Navbar = () => {
                 </a>
               </li>
               <li className="nav-item d-xl-none ps-3 d-flex align-items-center">
-                <a className="nav-link text-white p-0" id="iconNavbarSidenav" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                <a className="nav-link text-white p-0" id="iconNavbarSidenav" data-bs-toggle="offcanvas" href="#adminoffcanvas" role="button" aria-controls="offcanvasExample">
                   <div className="sidenav-toggler-inner">
                     <i className="sidenav-toggler-line bg-white"></i>
                     <i className="sidenav-toggler-line bg-white"></i>
@@ -107,6 +111,50 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
+
+      <div className="offcanvas offcanvas-start" id="adminoffcanvas" style={{ border: "none", borderRadius: '30px', width: '250px', style: "backgroundColor: red"}}>
+          <aside className="bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl fixed-start " id="sidenav-main"  >
+            <div className="sidenav-header p-4">
+              <i className="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+              <a className="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
+                <img src="../assets/img/logo-ct-dark.png" className="navbar-brand-img h-100" alt="main_logo" />
+                <span className="ms-1 font-weight-bold">Aplikasi Pemilu</span>
+              </a>
+            </div>
+            <hr className="horizontal dark mt-0"/>
+            <div id="sidenav-collapse-main">
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <Link className={(active=='dashboard') ? "nav-link active":"nav-link"} to="/admindashboard">
+                    <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-desktop text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Dashboard</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className={(active=='candidate') ? "nav-link active":"nav-link"} to="/kandidat">
+                    <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-user-tie text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Kandidat</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className={(active=='position') ? "nav-link active":"nav-link"} to="/jabatan">
+                    <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-award text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Jabatan</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+        </aside>
+</div>
+
+    </div>
+    
 
      );
 }

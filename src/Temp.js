@@ -315,11 +315,6 @@ const Temp = () => {
           </div>
         </div>
       </div>
-      
-
-
-
-
 
       <div className="row mt-4">
         <div className="col-lg-7 mb-lg-0 mb-4">
