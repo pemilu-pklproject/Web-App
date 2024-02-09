@@ -1,11 +1,12 @@
-const Volunteer = () => {
+const VoteArea = () => {
     return ( 
+        
         <div>
         <div className="row">
             <div className="col-12">
                 <div className="card mb-4">
                 <div className="card-header pb-0">
-                    <h6>Tabel Relawan</h6>
+                    <h6>Tabel Dapil</h6>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">
                         <i class="fa fa-plus"></i>
                     </button>
@@ -19,16 +20,10 @@ const Volunteer = () => {
                                 No
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Data Diri
+                                Data Dapil
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Role
-                                </th>
-                                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Data Login
-                                </th>
-                                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Kandidat
+                                Wilayah Dapil
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                 Aksi
@@ -41,21 +36,14 @@ const Volunteer = () => {
                                     <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>1</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Joni</p>
-                                    <p className="text-xs text-secondary mb-0">1272929382939</p>
-                                    <p className="text-xs text-secondary mb-0">Laki-Laki</p>
-                                    <p className="text-xs text-secondary mb-0">081377309908</p>
+                                    <p className="text-xs font-weight-bold mb-0">1101</p>
+                                    <p className="text-xs text-secondary mb-0">DPR RI</p>
+                                    <p className="text-xs text-secondary mb-0">ACEH I</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs text-secondary mb-0">Relawan</p>
-                                    <p className="text-xs text-secondary mb-0">Saksi</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs text-secondary mb-0">joniasasd@gmail.com</p>
-                                    <p className="text-xs text-secondary mb-0">joni</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs text-weight mb-0">Bambang</p>
+                                    <p className="text-xs font-weight-bold mb-0">1101</p>
+                                    <p className="text-xs text-secondary mb-0">Kabupaten/Kota</p>
+                                    <p className="text-xs text-secondary mb-0">ACEH SELATAN</p>
                                 </td>
                                 <td className="align-middle">
                                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
@@ -69,23 +57,17 @@ const Volunteer = () => {
                             </tr>
                             <tr>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>2</p>
+                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>1</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Jono</p>
-                                    <p className="text-xs text-secondary mb-0">1272928892939</p>
-                                    <p className="text-xs text-secondary mb-0">Laki-Laki</p>
-                                    <p className="text-xs text-secondary mb-0">081377309990</p>
+                                    <p className="text-xs font-weight-bold mb-0">1101</p>
+                                    <p className="text-xs text-secondary mb-0">DPR RI</p>
+                                    <p className="text-xs text-secondary mb-0">ACEH I</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs text-secondary mb-0">Saksi</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs text-secondary mb-0">jonoasasd@gmail.com</p>
-                                    <p className="text-xs text-secondary mb-0">jono</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs text-weight mb-0">Bambang</p>
+                                    <p className="text-xs font-weight-bold mb-0">1102</p>
+                                    <p className="text-xs text-secondary mb-0">Kabupaten/Kota</p>
+                                    <p className="text-xs text-secondary mb-0">ACEH TENGGARA</p>
                                 </td>
                                 <td className="align-middle">
                                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
@@ -119,7 +101,7 @@ const Volunteer = () => {
       <div className="modal-content">
         <div className="modal-header">
           <h1 className="modal-title fs-5" id="exampleModalLabel">
-            Tambah Data Relawan
+            Tambah Data Dapil
           </h1>
           <button
             type="button"
@@ -131,118 +113,92 @@ const Volunteer = () => {
         <div className="modal-body">
             <div className="row align-items-center">
                 <div className="col-12">
-                    <label htmlFor="nama" className="col-form-label">
-                    Nama :
+                    <label htmlFor="kodedapil" className="col-form-label">
+                    Kode Dapil:
                     </label>
                 </div>
                 <div className="col-12">
                     <input
                     type="text"
-                    id="nama"
+                    id="kodedapil"
                     className="form-control"
                     aria-describedby="passwordHelpInline"
                     />
                 </div>
             </div>
-            <div className="row align-items-center mt-3">
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <label htmlFor="jenisdapil" className="col-form-label">
+                    Jenis Dapil:
+                    </label>
+                </div>
+                <div className="col-12">
+                    <input
+                    type="text"
+                    id="jenisdapil"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    />
+                </div>
+            </div>
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <label htmlFor="namadapil" className="col-form-label">
+                    Nama Dapil:
+                    </label>
+                </div>
+                <div className="col-12">
+                    <input
+                    type="text"
+                    id="namadapil"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    />
+                </div>
+            </div>
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <label htmlFor="kodewilayah" className="col-form-label">
+                    Kode Wilayah:
+                    </label>
+                </div>
+                <div className="col-12">
+                    <input
+                    type="text"
+                    id="kodewilayah"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    />
+                </div>
+            </div>
+            <div className="row align-items-center">
                 <div className="col-12">
                     <label htmlFor="jeniskelamin" className="col-form-label">
-                    Jenis Kelamin :
+                    Tingkatan Wilayah :
                     </label>
                 </div>
                 <div className="col-12">
                     <select class="form-select" aria-label="Default select example" id="jeniskelamin">
-                        <option selected value="l">Laki-Laki</option>
-                        <option value="p">Perempuan</option>
+                        <option selected value="kabupaten/kota">Kabupaten/Kota</option>
+                        <option value="provinsi">Provinsi</option>
+                        <option value="kecamatan">Kecamatan</option>
+                        <option value="kelurahan/desa">Kelurahan/Desa</option>
                     </select>
                 </div>
             </div>
-            <div className="row align-items-center mt-3">
+            <div className="row align-items-center">
                 <div className="col-12">
-                    <label htmlFor="nik" className="col-form-label">
-                    Nomor Induk Kependudukan :
+                    <label htmlFor="namawilayah" className="col-form-label">
+                    Nama Wilayah:
                     </label>
                 </div>
                 <div className="col-12">
                     <input
                     type="text"
-                    id="nik"
+                    id="namawilayah"
                     className="form-control"
                     aria-describedby="passwordHelpInline"
                     />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="nohp" className="col-form-label">
-                    Nomor Handphone :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="text"
-                    id="nohp"
-                    className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="email" className="col-form-label">
-                    Email :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="email"
-                    id="email"
-                    className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="password" className="col-form-label">
-                    Password :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="text"
-                    id="password"
-                    className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="role" className="col-form-label">
-                    Role :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="role">
-                        <option selected value="r">Relawan</option>
-                        <option value="s">Saksi</option>
-                        <option value="rs">Relawan Dan Saksi</option>
-                    </select>
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="kandidat" className="col-form-label">
-                    Kandidat :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="kandidat">
-                        <option selected value="Bambang">Bambang</option>
-                        <option value="ilman">Ilman</option>
-                        <option value="junaedi">Junaedi</option>
-                    </select>
                 </div>
             </div>
         </div>
@@ -255,7 +211,7 @@ const Volunteer = () => {
             Tutup
           </button>
           <button type="button" className="btn btn-success">
-            Simpan Data Relawan
+            Simpan Data Dapil
           </button>
         </div>
       </div>
@@ -275,7 +231,7 @@ const Volunteer = () => {
       <div className="modal-content">
         <div className="modal-header">
           <h1 className="modal-title fs-5" id="exampleModalLabel">
-            Ubah Data Relawan
+            Ubah Data Dapil
           </h1>
           <button
             type="button"
@@ -287,123 +243,97 @@ const Volunteer = () => {
         <div className="modal-body">
             <div className="row align-items-center">
                 <div className="col-12">
-                    <label htmlFor="nama" className="col-form-label">
-                    Nama :
+                    <label htmlFor="kodedapil" className="col-form-label">
+                    Kode Dapil:
                     </label>
                 </div>
                 <div className="col-12">
                     <input
                     type="text"
-                    id="nama"
+                    id="kodedapil"
                     className="form-control"
                     aria-describedby="passwordHelpInline"
-                    value="Joni"
+                    value="1101"
                     />
                 </div>
             </div>
-            <div className="row align-items-center mt-3">
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <label htmlFor="jenisdapil" className="col-form-label">
+                    Jenis Dapil:
+                    </label>
+                </div>
+                <div className="col-12">
+                    <input
+                    type="text"
+                    id="jenisdapil"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    value="DPR DRI"
+                    />
+                </div>
+            </div>
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <label htmlFor="namadapil" className="col-form-label">
+                    Nama Dapil:
+                    </label>
+                </div>
+                <div className="col-12">
+                    <input
+                    type="text"
+                    id="namadapil"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    value="ACEH I"
+                    />
+                </div>
+            </div>
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <label htmlFor="kodewilayah" className="col-form-label">
+                    Kode Wilayah:
+                    </label>
+                </div>
+                <div className="col-12">
+                    <input
+                    type="text"
+                    id="kodewilayah"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    value="1101"
+                    />
+                </div>
+            </div>
+            <div className="row align-items-center">
                 <div className="col-12">
                     <label htmlFor="jeniskelamin" className="col-form-label">
-                    Jenis Kelamin :
+                    Tingkatan Wilayah :
                     </label>
                 </div>
                 <div className="col-12">
                     <select class="form-select" aria-label="Default select example" id="jeniskelamin">
-                        <option selected value="l">Laki-Laki</option>
-                        <option value="p">Perempuan</option>
+                        <option selected value="kabupaten/kota">Kabupaten/Kota</option>
+                        <option value="provinsi">Provinsi</option>
+                        <option value="kecamatan">Kecamatan</option>
+                        <option value="kelurahan/desa">Kelurahan/Desa</option>
                     </select>
                 </div>
             </div>
-            <div className="row align-items-center mt-3">
+            <div className="row align-items-center">
                 <div className="col-12">
-                    <label htmlFor="nik" className="col-form-label">
-                    Nomor Induk Kependudukan :
+                    <label htmlFor="namawilayah" className="col-form-label">
+                    Nama Wilayah:
                     </label>
                 </div>
                 <div className="col-12">
                     <input
                     type="text"
-                    id="nik"
+                    id="namawilayah"
                     className="form-control"
                     aria-describedby="passwordHelpInline"
-                    value="12728322302382"
+                    value="ACEH SELATAN"
                     />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="nohp" className="col-form-label">
-                    Nomor Handphone :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="text"
-                    id="nohp"
-                    className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="0813138193819"
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="email" className="col-form-label">
-                    Email :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="email"
-                    id="email"
-                    className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="joni@gmail.com"
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="password" className="col-form-label">
-                    Password :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="text"
-                    id="password"
-                    className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="joni"
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="role" className="col-form-label">
-                    Role :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="role">
-                        <option selected value="r">Relawan</option>
-                        <option value="s">Saksi</option>
-                        <option value="rs">Relawan Dan Saksi</option>
-                    </select>
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="kandidat" className="col-form-label">
-                    Kandidat :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="kandidat">
-                        <option selected value="Bambang">Bambang</option>
-                        <option value="ilman">Ilman</option>
-                        <option value="junaedi">Junaedi</option>
-                    </select>
                 </div>
             </div>
         </div>
@@ -436,7 +366,7 @@ const Volunteer = () => {
       <div className="modal-content">
         <div className="modal-header">
           <h1 className="modal-title fs-5" id="exampleModalLabel">
-            Yakin Ingin Hapus Kandidat Ini?
+            Yakin Ingin Hapus Dapil Ini?
           </h1>
           <button
             type="button"
@@ -448,128 +378,102 @@ const Volunteer = () => {
         <div className="modal-body">
             <div className="row align-items-center">
                 <div className="col-12">
-                    <label htmlFor="nama" className="col-form-label">
-                    Nama :
+                    <label htmlFor="kodedapil" className="col-form-label">
+                    Kode Dapil:
                     </label>
                 </div>
                 <div className="col-12">
                     <input
                     type="text"
-                    id="nama"
+                    id="kodedapil"
                     className="form-control"
                     aria-describedby="passwordHelpInline"
-                    value="Joni"
+                    value="1101"
                     disabled
                     />
                 </div>
             </div>
-            <div className="row align-items-center mt-3">
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <label htmlFor="jenisdapil" className="col-form-label">
+                    Jenis Dapil:
+                    </label>
+                </div>
+                <div className="col-12">
+                    <input
+                    type="text"
+                    id="jenisdapil"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    value="DPR DRI"
+                    disabled
+                    />
+                </div>
+            </div>
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <label htmlFor="namadapil" className="col-form-label">
+                    Nama Dapil:
+                    </label>
+                </div>
+                <div className="col-12">
+                    <input
+                    type="text"
+                    id="namadapil"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    value="ACEH I"
+                    disabled
+                    />
+                </div>
+            </div>
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <label htmlFor="kodewilayah" className="col-form-label">
+                    Kode Wilayah:
+                    </label>
+                </div>
+                <div className="col-12">
+                    <input
+                    type="text"
+                    id="kodewilayah"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    value="1101"
+                    disabled
+                    />
+                </div>
+            </div>
+            <div className="row align-items-center">
                 <div className="col-12">
                     <label htmlFor="jeniskelamin" className="col-form-label">
-                    Jenis Kelamin :
+                    Tingkatan Wilayah :
                     </label>
                 </div>
                 <div className="col-12">
                     <select class="form-select" aria-label="Default select example" id="jeniskelamin" disabled>
-                        <option selected value="l">Laki-Laki</option>
-                        <option value="p">Perempuan</option>
+                        <option selected value="kabupaten/kota">Kabupaten/Kota</option>
+                        <option value="provinsi">Provinsi</option>
+                        <option value="kecamatan">Kecamatan</option>
+                        <option value="kelurahan/desa">Kelurahan/Desa</option>
                     </select>
                 </div>
             </div>
-            <div className="row align-items-center mt-3">
+            <div className="row align-items-center">
                 <div className="col-12">
-                    <label htmlFor="nik" className="col-form-label">
-                    Nomor Induk Kependudukan :
+                    <label htmlFor="namawilayah" className="col-form-label">
+                    Nama Wilayah:
                     </label>
                 </div>
                 <div className="col-12">
                     <input
                     type="text"
-                    id="nik"
+                    id="namawilayah"
                     className="form-control"
                     aria-describedby="passwordHelpInline"
-                    value="12728322302382"
+                    value="ACEH SELATAN"
                     disabled
                     />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="nohp" className="col-form-label">
-                    Nomor Handphone :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="text"
-                    id="nohp"
-                    className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="0813138193819"
-                    disabled
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="email" className="col-form-label">
-                    Email :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="email"
-                    id="email"
-                    className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="joni@gmail.com"
-                    disabled
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="password" className="col-form-label">
-                    Password :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="text"
-                    id="password"
-                    className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="joni"
-                    disabled
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="jeniskelamin" className="col-form-label">
-                    Role :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="jeniskelamin" disabled>
-                        <option selected value="r">Relawan</option>
-                        <option value="s">Saksi</option>
-                        <option value="rs">Relawan Dan Saksi</option>
-                    </select>
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="kandidat" className="col-form-label">
-                    Kandidat :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="kandidat" disabled>
-                        <option selected value="Bambang">Bambang</option>
-                        <option value="ilman">Ilman</option>
-                        <option value="junaedi">Junaedi</option>
-                    </select>
                 </div>
             </div>
         </div>
@@ -582,15 +486,16 @@ const Volunteer = () => {
             Tutup
           </button>
           <button type="button" className="btn btn-danger">
-            Hapus Relawan
+            Hapus Dapil
           </button>
         </div>
       </div>
     </div>
   </div>
 
-        </div>
-    );
+    </div>
+
+     );
 }
  
-export default Volunteer;
+export default VoteArea;

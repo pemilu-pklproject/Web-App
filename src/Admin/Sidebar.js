@@ -24,6 +24,14 @@ const Sidebar = (props) => {
                   </Link>
                 </li>
                 <li className="nav-item">
+                  <Link className={(active=='admin') ? "nav-link active":"nav-link"} to="/admin">
+                    <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-user-cog text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Admin</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link className={(active=='candidate') ? "nav-link active":"nav-link"} to="/kandidat">
                     <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fa fa-user-tie text-primary text-sm opacity-10"></i>
@@ -42,9 +50,25 @@ const Sidebar = (props) => {
                 <li className="nav-item">
                   <Link className={(active=='vote') ? "nav-link active":"nav-link"} to="/hasilsuara">
                     <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fa fa-box-tissue text-primary text-sm opacity-10"></i>
+                      <i className="fa fa-poll text-primary text-sm opacity-10"></i>
                     </div>
                     <span className="nav-link-text ms-1">Hasil Pemilihan</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className={(active=='region') ? "nav-link active":"nav-link"} to="/wilayah">
+                    <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-map-marker-alt text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Wilayah</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className={(active=='votearea') ? "nav-link active":"nav-link"} to="/dapil">
+                    <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fas fa-map-pin text-primary text-sm opacity-10"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Dapil</span>
                   </Link>
                 </li>
               </ul>

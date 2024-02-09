@@ -16,9 +16,6 @@ const Vote = () => {
                                 No
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Kandidat
-                                </th>
-                                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                 Saksi
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -39,9 +36,6 @@ const Vote = () => {
                             <tr>
                                 <td>
                                     <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>1</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Bambang</p>
                                 </td>
                                 <td>
                                     <p className="text-xs font-weight-bold mb-0">Joni</p>
@@ -66,9 +60,6 @@ const Vote = () => {
                                     <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>2</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Bambang</p>
-                                </td>
-                                <td>
                                     <p className="text-xs font-weight-bold mb-0">Joni</p>
                                 </td>
                                 <td className="align-middle">
@@ -89,9 +80,6 @@ const Vote = () => {
                             <tr>
                                 <td>
                                     <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>3</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Bambang</p>
                                 </td>
                                 <td>
                                     <p className="text-xs font-weight-bold mb-0">Jono</p>
@@ -143,22 +131,6 @@ const Vote = () => {
           />
         </div>
         <div className="modal-body">
-            <div className="row align-items-center">
-                <div className="col-12">
-                    <label htmlFor="kandidat" className="col-form-label">
-                    Kandidat :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="text"
-                    readOnly
-                    className="form-control-plaintext p-2"
-                    id="kandidat"
-                    value="Bambang"
-                    />
-                </div>
-            </div>
             <div className="row align-items-center">
                 <div className="col-12">
                     <label htmlFor="dapil" className="col-form-label">

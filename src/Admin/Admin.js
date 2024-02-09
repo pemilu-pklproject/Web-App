@@ -1,4 +1,4 @@
-const VotingPlace = () => {
+const Admin = () => {
     return ( 
 
         <div>
@@ -6,7 +6,7 @@ const VotingPlace = () => {
             <div className="col-12">
                 <div className="card mb-4">
                 <div className="card-header pb-0">
-                    <h6>Tabel TPS</h6>
+                    <h6>Tabel Admin</h6>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">
                         <i class="fa fa-plus"></i>
                     </button>
@@ -20,13 +20,13 @@ const VotingPlace = () => {
                                 No
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Nomor
+                                Nama
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Daerah Pilih
+                                Email
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Saksi
+                                Password
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                 Aksi
@@ -39,13 +39,13 @@ const VotingPlace = () => {
                                     <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>1</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">002</p>
+                                    <p className="text-xs font-weight-bold mb-0">Rio</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Jakarta</p>
+                                    <p className="text-xs font-weight-bold mb-0">riodewanto@gmail.com</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Joni</p>
+                                    <p className="text-xs font-weight-bold mb-0">rio12345</p>
                                 </td>
                                 <td className="align-middle">
                                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
@@ -62,13 +62,13 @@ const VotingPlace = () => {
                                     <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>2</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">003</p>
+                                    <p className="text-xs font-weight-bold mb-0">Rina</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Jakarta</p>
+                                    <p className="text-xs font-weight-bold mb-0">ina@gmail.com</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Joni</p>
+                                    <p className="text-xs font-weight-bold mb-0">rina12345</p>
                                 </td>
                                 <td className="align-middle">
                                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
@@ -85,13 +85,13 @@ const VotingPlace = () => {
                                     <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>3</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">003</p>
+                                    <p className="text-xs font-weight-bold mb-0">Galih</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Jakarta</p>
+                                    <p className="text-xs font-weight-bold mb-0">galih@gmail.com</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Joni</p>
+                                    <p className="text-xs font-weight-bold mb-0">galihserbaguna12345</p>
                                 </td>
                                 <td className="align-middle">
                                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
@@ -103,7 +103,6 @@ const VotingPlace = () => {
                                     </button>
                                 </td>
                             </tr>
-                            
                             </tbody>
                         </table>
                     </div>
@@ -125,7 +124,7 @@ const VotingPlace = () => {
       <div className="modal-content">
         <div className="modal-header">
           <h1 className="modal-title fs-5" id="exampleModalLabel">
-            Tambah Data TPS
+            Tambah Data Admin
           </h1>
           <button
             type="button"
@@ -135,16 +134,16 @@ const VotingPlace = () => {
           />
         </div>
         <div className="modal-body">
-            <div className="row align-items-center">
+            <div className="row align-items-center mt-3">
                 <div className="col-12">
-                    <label htmlFor="nomor" className="col-form-label">
-                    Nomor :
+                    <label htmlFor="name" className="col-form-label">
+                    Nama :
                     </label>
                 </div>
                 <div className="col-12">
                     <input
                     type="text"
-                    id="nomor"
+                    id="name"
                     className="form-control"
                     aria-describedby="passwordHelpInline"
                     />
@@ -152,28 +151,32 @@ const VotingPlace = () => {
             </div>
             <div className="row align-items-center mt-3">
                 <div className="col-12">
-                    <label htmlFor="dapil" className="col-form-label">
-                    Daerah Pilih :
+                    <label htmlFor="email" className="col-form-label">
+                    Email :
                     </label>
                 </div>
                 <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="dapil">
-                        <option selected value="jakarta">Jakarta</option>
-                        <option value="medan">Medan</option>
-                    </select>
+                    <input
+                    type="email"
+                    id="email"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    />
                 </div>
             </div>
             <div className="row align-items-center mt-3">
                 <div className="col-12">
-                    <label htmlFor="dapil" className="col-form-label">
-                    Saksi :
+                    <label htmlFor="password" className="col-form-label">
+                    Password :
                     </label>
                 </div>
                 <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="dapil">
-                        <option selected value="joni">Joni</option>
-                        <option value="jono">Jono</option>
-                    </select>
+                    <input
+                    type="text"
+                    id="password"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    />
                 </div>
             </div>
         </div>
@@ -186,7 +189,7 @@ const VotingPlace = () => {
             Tutup
           </button>
           <button type="button" className="btn btn-success">
-            Simpan Data Kandidat
+            Simpan Data Admin
           </button>
         </div>
       </div>
@@ -206,7 +209,7 @@ const VotingPlace = () => {
       <div className="modal-content">
         <div className="modal-header">
           <h1 className="modal-title fs-5" id="exampleModalLabel">
-            Ubah Data Kandidat
+            Ubah Data Admin
           </h1>
           <button
             type="button"
@@ -216,46 +219,52 @@ const VotingPlace = () => {
           />
         </div>
         <div className="modal-body">
-            <div className="row align-items-center">
+            <div className="row align-items-center mt-3">
                 <div className="col-12">
-                    <label htmlFor="nomor" className="col-form-label">
-                    Nomor :
+                    <label htmlFor="name" className="col-form-label">
+                    Nama :
                     </label>
                 </div>
                 <div className="col-12">
                     <input
                     type="text"
-                    id="nomor"
+                    id="name"
                     className="form-control"
                     aria-describedby="passwordHelpInline"
-                    value="002"
+                    value="Rio"
                     />
                 </div>
             </div>
             <div className="row align-items-center mt-3">
                 <div className="col-12">
-                    <label htmlFor="dapil" className="col-form-label">
-                    Daerah Pilih :
+                    <label htmlFor="email" className="col-form-label">
+                    Email :
                     </label>
                 </div>
                 <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="dapil">
-                        <option selected value="jakarta">Jakarta</option>
-                        <option value="medan">Medan</option>
-                    </select>
+                    <input
+                    type="email"
+                    id="email"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    value="riodewanto@gmail.com"
+                    />
                 </div>
             </div>
             <div className="row align-items-center mt-3">
                 <div className="col-12">
-                    <label htmlFor="dapil" className="col-form-label">
-                    Saksi :
+                    <label htmlFor="password" className="col-form-label">
+                    Password :
                     </label>
                 </div>
                 <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="dapil">
-                        <option selected value="joni">Joni</option>
-                        <option value="jono">Jono</option>
-                    </select>
+                    <input
+                    type="text"
+                    id="password"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    value="bambangtest"
+                    />
                 </div>
             </div>
         </div>
@@ -288,7 +297,7 @@ const VotingPlace = () => {
       <div className="modal-content">
         <div className="modal-header">
           <h1 className="modal-title fs-5" id="exampleModalLabel">
-            Yakin Ingin Hapus Kandidat Ini?
+            Yakin Ingin Hapus Admin Ini?
           </h1>
           <button
             type="button"
@@ -298,47 +307,55 @@ const VotingPlace = () => {
           />
         </div>
         <div className="modal-body">
-            <div className="row align-items-center">
+            <div className="row align-items-center mt-3">
                 <div className="col-12">
-                    <label htmlFor="nomor" className="col-form-label">
-                    Nomor :
+                    <label htmlFor="name" className="col-form-label">
+                    Nama :
                     </label>
                 </div>
                 <div className="col-12">
                     <input
                     type="text"
-                    id="nomor"
+                    id="name"
                     className="form-control"
                     aria-describedby="passwordHelpInline"
-                    value="002"
+                    value="Rio"
                     disabled
                     />
                 </div>
             </div>
             <div className="row align-items-center mt-3">
                 <div className="col-12">
-                    <label htmlFor="dapil" className="col-form-label">
-                    Daerah Pilih :
+                    <label htmlFor="email" className="col-form-label">
+                    Email :
                     </label>
                 </div>
                 <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="dapil" disabled>
-                        <option selected value="jakarta">Jakarta</option>
-                        <option value="medan">Medan</option>
-                    </select>
+                    <input
+                    type="email"
+                    id="email"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    value="riodewanto@gmail.com"
+                    disabled
+                    />
                 </div>
             </div>
             <div className="row align-items-center mt-3">
                 <div className="col-12">
-                    <label htmlFor="dapil" className="col-form-label">
-                    Saksi :
+                    <label htmlFor="password" className="col-form-label">
+                    Password :
                     </label>
                 </div>
                 <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="dapil" disabled>
-                        <option selected value="joni">Joni</option>
-                        <option value="jono">Jono</option>
-                    </select>
+                    <input
+                    type="text"
+                    id="password"
+                    className="form-control"
+                    aria-describedby="passwordHelpInline"
+                    value="rio12345"
+                    disabled
+                    />
                 </div>
             </div>
         </div>
@@ -351,7 +368,7 @@ const VotingPlace = () => {
             Tutup
           </button>
           <button type="button" className="btn btn-danger">
-            Hapus Kandidat
+            Hapus Admin
           </button>
         </div>
       </div>
@@ -363,4 +380,4 @@ const VotingPlace = () => {
     );
 }
  
-export default VotingPlace;
+export default Admin;

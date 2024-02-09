@@ -28,6 +28,9 @@ const Candidate = () => {
                                 Data Login
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                Admin
+                                </th>
+                                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                 Aksi
                                 </th>
                             </tr>
@@ -47,10 +50,14 @@ const Candidate = () => {
                                     <p className="text-xs font-weight-bold mb-0">Gubernur</p>
                                     <p className="text-xs text-secondary mb-0">Partai Hanura</p>
                                     <p className="text-xs text-secondary mb-0">Kota Medan</p>
+                                    <p className="text-xs text-secondary mb-0">ACEH</p>
                                 </td>
                                 <td>
                                     <p className="text-xs text-secondary mb-0">bambangganteng@gmail.com</p>
                                     <p className="text-xs text-secondary mb-0">bambanggans</p>
+                                </td>
+                                <td>
+                                    <p className="text-xs text-weight mb-0">Rio</p>
                                 </td>
                                 <td className="align-middle">
                                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
@@ -76,10 +83,14 @@ const Candidate = () => {
                                     <p className="text-xs font-weight-bold mb-0">Gubernur</p>
                                     <p className="text-xs text-secondary mb-0">Partai Demokrat</p>
                                     <p className="text-xs text-secondary mb-0">Kota Medan</p>
+                                    <p className="text-xs text-secondary mb-0">ACEH</p>
                                 </td>
                                 <td>
                                     <p className="text-xs text-secondary mb-0">ilmangans@gmail.com</p>
                                     <p className="text-xs text-secondary mb-0">ilman</p>
+                                </td>
+                                <td>
+                                    <p className="text-xs text-weight mb-0">Rio</p>
                                 </td>
                                 <td className="align-middle">
                                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
@@ -105,10 +116,14 @@ const Candidate = () => {
                                     <p className="text-xs font-weight-bold mb-0">Gubernur</p>
                                     <p className="text-xs text-secondary mb-0">Partai Golkar</p>
                                     <p className="text-xs text-secondary mb-0">Kota Medan</p>
+                                    <p className="text-xs text-secondary mb-0">ACEH</p>
                                 </td>
                                 <td>
                                     <p className="text-xs text-secondary mb-0">junaedisimalungun@gmail.com</p>
                                     <p className="text-xs text-secondary mb-0">junaedi</p>
+                                </td>
+                                <td>
+                                    <p className="text-xs text-weight mb-0">Rio</p>
                                 </td>
                                 <td className="align-middle">
                                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
@@ -240,6 +255,32 @@ const Candidate = () => {
             </div>
             <div className="row align-items-center mt-3">
                 <div className="col-12">
+                    <label htmlFor="dapil" className="col-form-label">
+                    Dapil :
+                    </label>
+                </div>
+                <div className="col-12">
+                    <select class="form-select" aria-label="Default select example" id="dapil">
+                        <option selected value="l">Kota Medan</option>
+                        <option value="p">Kota Jakarta</option>
+                    </select>
+                </div>
+            </div>
+            <div className="row align-items-center mt-3">
+                <div className="col-12">
+                    <label htmlFor="wilayah" className="col-form-label">
+                    Wilayah :
+                    </label>
+                </div>
+                <div className="col-12">
+                    <select class="form-select" aria-label="Default select example" id="wilayah">
+                        <option selected value="aceh">Aceh</option>
+                        <option value="sumaterautara">Sumatera Utara</option>
+                    </select>
+                </div>
+            </div>
+            <div className="row align-items-center mt-3">
+                <div className="col-12">
                     <label htmlFor="nourut" className="col-form-label">
                     Nomor Urut :
                     </label>
@@ -266,6 +307,19 @@ const Candidate = () => {
                     className="form-control"
                     aria-describedby="passwordHelpInline"
                     />
+                </div>
+            </div>
+            <div className="row align-items-center mt-3">
+                <div className="col-12">
+                    <label htmlFor="jeniskelamin" className="col-form-label">
+                    Admin :
+                    </label>
+                </div>
+                <div className="col-12">
+                    <select class="form-select" aria-label="Default select example" id="jeniskelamin">
+                        <option selected value="rio">Rio</option>
+                        <option value="rina">Rina</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -400,6 +454,32 @@ const Candidate = () => {
             </div>
             <div className="row align-items-center mt-3">
                 <div className="col-12">
+                    <label htmlFor="dapil" className="col-form-label">
+                    Dapil :
+                    </label>
+                </div>
+                <div className="col-12">
+                    <select class="form-select" aria-label="Default select example" id="dapil">
+                        <option selected value="l">Kota Medan</option>
+                        <option value="p">Kota Jakarta</option>
+                    </select>
+                </div>
+            </div>
+            <div className="row align-items-center mt-3">
+                <div className="col-12">
+                    <label htmlFor="wilayah" className="col-form-label">
+                    Wilayah :
+                    </label>
+                </div>
+                <div className="col-12">
+                    <select class="form-select" aria-label="Default select example" id="wilayah">
+                        <option selected value="aceh">Aceh</option>
+                        <option value="sumaterautara">Sumatera Utara</option>
+                    </select>
+                </div>
+            </div>
+            <div className="row align-items-center mt-3">
+                <div className="col-12">
                     <label htmlFor="nourut" className="col-form-label">
                     Nomor Urut :
                     </label>
@@ -428,6 +508,19 @@ const Candidate = () => {
                     aria-describedby="passwordHelpInline"
                     value="Partai Hanura"
                     />
+                </div>
+            </div>
+            <div className="row align-items-center mt-3">
+                <div className="col-12">
+                    <label htmlFor="jeniskelamin" className="col-form-label">
+                    Admin :
+                    </label>
+                </div>
+                <div className="col-12">
+                    <select class="form-select" aria-label="Default select example" id="jeniskelamin">
+                        <option selected value="rio">Rio</option>
+                        <option value="rina">Rina</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -566,6 +659,32 @@ const Candidate = () => {
             </div>
             <div className="row align-items-center mt-3">
                 <div className="col-12">
+                    <label htmlFor="dapil" className="col-form-label">
+                    Dapil :
+                    </label>
+                </div>
+                <div className="col-12">
+                    <select class="form-select" aria-label="Default select example" id="dapil" disabled>
+                        <option selected value="l">Kota Medan</option>
+                        <option value="p">Kota Jakarta</option>
+                    </select>
+                </div>
+            </div>
+            <div className="row align-items-center mt-3">
+                <div className="col-12">
+                    <label htmlFor="wilayah" className="col-form-label">
+                    Wilayah :
+                    </label>
+                </div>
+                <div className="col-12">
+                    <select class="form-select" aria-label="Default select example" id="wilayah" disabled>
+                        <option selected value="aceh">Aceh</option>
+                        <option value="sumaterautara">Sumatera Utara</option>
+                    </select>
+                </div>
+            </div>
+            <div className="row align-items-center mt-3">
+                <div className="col-12">
                     <label htmlFor="nourut" className="col-form-label">
                     Nomor Urut :
                     </label>
@@ -596,6 +715,19 @@ const Candidate = () => {
                     value="Partai Hanura"
                     disabled
                     />
+                </div>
+            </div>
+            <div className="row align-items-center mt-3">
+                <div className="col-12">
+                    <label htmlFor="jeniskelamin" className="col-form-label">
+                    Admin :
+                    </label>
+                </div>
+                <div className="col-12">
+                    <select class="form-select" aria-label="Default select example" id="jeniskelamin" disabled>
+                        <option selected value="rio">Rio</option>
+                        <option value="rina">Rina</option>
+                    </select>
                 </div>
             </div>
         </div>
