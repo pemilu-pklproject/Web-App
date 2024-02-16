@@ -1,4 +1,25 @@
+import { useState } from 'react';
+import useFetch from "../useFetch";
+
 const Candidate = () => {
+    const [nama, setNama] = useState('');
+    const [nik, setNik] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [jenis_kelamin, setJenisKelamin] = useState('pria');
+    const [partai, setPartai] = useState('');
+    const [noUrut, setNoUrut] = useState('');
+    const [idDapil, setIdDapil] = useState('');
+    const [dapil, setDapil] = useState('');
+    const [idJabatan, setIdJabatan] = useState('');
+    const [jabatan, setJabatan] = useState('');
+    const [idAdmin, setIdAdmin] = useState('');
+    const [admin, setAdmin] = useState('');
+    const [idWilayah, setIdWilayah] = useState('');
+    const [wilayah, setWilayah] = useState('');
+
+    const [id, setId] = useState(null);
+
     return ( 
         <div>
         <div className="row">
@@ -447,7 +468,7 @@ const Candidate = () => {
                 </div>
                 <div className="col-12">
                     <select class="form-select" aria-label="Default select example" id="jabatan">
-                        <option selected value="presiden">Presiden</option>
+                        <option selected value="presiden">presiden</option>
                         <option value="gubernur">Gubernur</option>
                     </select>
                 </div>

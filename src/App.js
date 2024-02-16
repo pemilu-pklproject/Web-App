@@ -37,7 +37,7 @@ function App() {
   return (
     <Router>
       <Switch>
-          <Route path="/login">
+          <Route exact path="/">
             <Login/>
           </Route>
       <div className="g-sidenav-show bg-gray-100">

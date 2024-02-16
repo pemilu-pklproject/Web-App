@@ -1,21 +1,82 @@
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+
 const Login = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [role, setRole] = useState('admin');
+    const [status, setStatus] = useState('');
+    const [user, setUser] = useState(null);
+    const history = useHistory();
+
+    const login = (e) => {
+        e.preventDefault();
+
+        if (role == "admin") {
+            const url = 'http://localhost:8080/si-pemilu/api/v1/login/admin';
+            const login = { "email":username, password };
+            fetch(url, {
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(login),
+            }).then(res => {
+                return res.json();
+            })
+            .then(data => {
+                setUser(data);
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
+        }else{
+            const url = 'http://localhost:8080/si-pemilu/api/v1/login/kandidat';
+            const login = { "nik":username, password };
+            fetch(url, {
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(login),
+            }).then(res => {
+                return res.json();
+            })
+            .then(data => {
+                setUser(data);
+            })
+            .catch(err => {
+                console.log(err.message);
+            });
+        }
+    }
+
+    useEffect(() => {
+        if (user != null) {
+            if (user.status == true) {
+                alert('Login Berhasil');
+                history.push('/dashboardkandidat')
+            }else{
+                alert(user.msg);
+            }
+        }
+    }, [user]); 
+
     return ( 
     
     <div className="container">
         <div className="row mt-8 justify-content-center">
             <div className="col-xl-4 col-lg-5 col-md-7 mx-auto">
                 <div className="card z-index-0">
-                    <div className="card-header text-center pt-4">
+                    <div className="card-header text-center">
                         <h5>Silahkan Login</h5>
+                        <h6 className="text-danger">{status}</h6>
                     </div>
                     <div className="card-body">
-                    <form role="form">
-                        <div className="mb-3">
+                    <form onSubmit={login}>
+                        <div className="mb-3 mt-n3">
                         <input
-                            type="email"
+                            type="text"
                             className="form-control"
-                            placeholder="Email"
-                            aria-label="Email"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                         </div>
                         <div className="mb-3">
@@ -23,9 +84,22 @@ const Login = () => {
                             type="password"
                             className="form-control"
                             placeholder="Password"
-                            aria-label="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                         </div>
+
+                        <div className="mb-3">
+                            <select 
+                                className="form-select"
+                                onChange={(e) => setRole(e.target.value)}
+                                value={role}
+                            >
+                                <option value="admin">Login Sebagai Admin</option>
+                                <option value="kandidat">Login Sebagai Kandidat</option>
+                            </select>
+                        </div>
+
                         <div className="text-center">
                             <input type="submit" className="btn bg-gradient-dark w-100 my-4 mb-2" value="Login" />
                         </div>

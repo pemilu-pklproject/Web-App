@@ -1,4 +1,22 @@
+import { useState } from 'react';
+import useFetch from "../useFetch";
+
 const Position = () => {
+    const [jabatan, setJabatan] = useState('');
+    
+    const {data:jbtn} = useFetch('http://localhost:8080/si-pemilu/api/v1/calon-jabatan.json');
+    // console.log(jbtn);
+    let i = 1;
+
+    const insertModal = () =>{
+      setJabatan('');
+    }
+
+    const insert = (e) =>{
+      e.preventDefault();
+      console.log('test');
+    }
+
     return ( 
     <div>
         <div className="row">
@@ -6,7 +24,7 @@ const Position = () => {
                 <div className="card mb-4">
                 <div className="card-header pb-0">
                     <h6>Tabel Jabatan</h6>
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal"  onClick={insertModal}>
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
@@ -27,57 +45,25 @@ const Position = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>1</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Presiden</p>
-                                </td>
-                                <td className="align-middle">
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>2</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Gubernur</p>
-                                </td>
-                                <td className="align-middle">
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>3</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Menteri</p>
-                                </td>
-                                <td className="align-middle">
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            {jbtn && jbtn.map((jbn) => (
+                              <tr>
+                                  <td>
+                                      <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>{i++}</p>
+                                  </td>
+                                  <td>
+                                      <p className="text-xs font-weight-bold mb-0">{jbn.jabatan}</p>
+                                  </td>
+                                  <td className="align-middle">
+                                      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
+                                          <i class="fas fa-pencil-alt"></i>
+                                      </button>
+                                      &nbsp;
+                                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                          <i class="far fa-trash-alt"></i>
+                                      </button>
+                                  </td>
+                              </tr>
+                            ))}
                             
                             </tbody>
                         </table>
@@ -109,6 +95,7 @@ const Position = () => {
             aria-label="Close"
           />
         </div>
+        <form onSubmit={insert}>
         <div className="modal-body">
             <div className="row align-items-center">
                 <div className="col-12">
@@ -121,7 +108,8 @@ const Position = () => {
                     type="text"
                     id="jabatan"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
+                    value={jabatan}
+                    onChange={(e) => setJabatan(e.target.value)}
                     />
                 </div>
             </div>
@@ -134,10 +122,11 @@ const Position = () => {
           >
             Tutup
           </button>
-          <button type="button" className="btn btn-success">
+          <button type="submit" className="btn btn-success">
             Simpan Data Jabatan
           </button>
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -176,8 +165,8 @@ const Position = () => {
                     type="text"
                     id="jabatan"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="Presiden"
+                    value={jabatan}
+                    onChange={(e) => setJabatan(e.target.value)}
                     />
                 </div>
             </div>
@@ -232,9 +221,8 @@ const Position = () => {
                     type="text"
                     id="jabatan"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="Presiden"
-                    disabled
+                    value={jabatan}
+                    onChange={(e) => setJabatan(e.target.value)}
                     />
                 </div>
             </div>

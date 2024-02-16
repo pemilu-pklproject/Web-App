@@ -1,4 +1,10 @@
+import { useState } from 'react';
+
 const Admin = () => {
+    let i = 1;
+
+    const [username, setUsername] = useState('');
+    
     return ( 
 
         <div>
@@ -34,75 +40,29 @@ const Admin = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>1</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Rio</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">riodewanto@gmail.com</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">rio12345</p>
-                                </td>
-                                <td className="align-middle">
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>2</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Rina</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">ina@gmail.com</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">rina12345</p>
-                                </td>
-                                <td className="align-middle">
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>3</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Galih</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">galih@gmail.com</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">galihserbaguna12345</p>
-                                </td>
-                                <td className="align-middle">
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                              <tr>
+                                  <td>
+                                      <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>{i++}</p>
+                                  </td>
+                                  <td>
+                                      <p className="text-xs font-weight-bold mb-0">ilham</p>
+                                  </td>
+                                  <td>
+                                      <p className="text-xs font-weight-bold mb-0">ilham@gmail.com</p>
+                                  </td>
+                                  <td>
+                                      <p className="text-xs font-weight-bold mb-0">ilhamss</p>
+                                  </td>
+                                  <td className="align-middle">
+                                      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
+                                          <i class="fas fa-pencil-alt"></i>
+                                      </button>
+                                      &nbsp;
+                                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                          <i class="far fa-trash-alt"></i>
+                                      </button>
+                                  </td>
+                              </tr>
                             </tbody>
                         </table>
                     </div>
