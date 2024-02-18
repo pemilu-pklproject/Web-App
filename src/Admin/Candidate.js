@@ -284,17 +284,9 @@ const Candidate = () => {
             console.log(wilayah);
             
             setKodeProvinsi(wilayah[0]);
-            console.log('seharusnya ' + wilayah[0]);
-            console.log('malah '+kodeProvinsi);
             setKodeKabKot(wilayah[0] + '.' + wilayah[1]);
-            console.log('seharusnya ' + wilayah[0] + '.' + wilayah[1]);
-            console.log('malah '+kodeKabKot);
             setKodeKec(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2]);
-            console.log('seharusnya ' + wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2]);
-            console.log('malah '+kodeKec);
             setKodeDes(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2] + '.' + wilayah[3]);
-            console.log('seharusnya ' + wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2] + '.' + wilayah[3]);
-            console.log('malah '+kodeDes);
             
             if (idJabatan == 2 || idJabatan == 5 || idJabatan == 8) {
                 setKodeDapil(data.kode_dapil);
