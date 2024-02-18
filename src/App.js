@@ -3,11 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AdminDynamicPages from './Admin/DynamicPages';
 import AdminDashboard from "./Admin/Dashboard";
 import AdminCandidate from "./Admin/Candidate";
-import AdminPosition from "./Admin/Position";
 import AdminVote from "./Admin/Vote";
 import AdminAdmin from "./Admin/Admin";
-import AdminRegion from "./Admin/Region";
-import AdminVoteArea from "./Admin/VoteArea";
 
 import CandidateDynamicPages from './Candidate/DynamicPages';
 import CandidateDashboard from "./Candidate/Dashboard";
@@ -21,11 +18,8 @@ import Login from "./Login";
 function App() {
   const admindashboardpage = <AdminDashboard/>;
   const admincandidatepage = <AdminCandidate/>;
-  const adminpositionpage = <AdminPosition/>;
   const adminvotepage = <AdminVote/>;
   const adminadminpage = <AdminAdmin/>;
-  const adminregionpage = <AdminRegion/>;
-  const adminvoteareapage = <AdminVoteArea/>;
 
   const candidatedashboardpage = <CandidateDashboard/>;
   const candidatevolunteerpage = <CandidateVolunteer/>;
@@ -51,17 +45,8 @@ function App() {
           <Route path="/kandidat">
             <AdminDynamicPages title='Data Kandidat' active='candidate' page ={admincandidatepage}/>
           </Route>
-          <Route path="/jabatan">
-            <AdminDynamicPages title='Data Jabatan' active='position' page ={adminpositionpage}/>
-          </Route>
           <Route path="/hasilsuara">
             <AdminDynamicPages title='Data Hasil Pemilihan' active='vote' page ={adminvotepage}/>
-          </Route>
-          <Route path="/wilayah">
-            <AdminDynamicPages title='Data Wilayah' active='region' page ={adminregionpage}/>
-          </Route>
-          <Route path="/dapil">
-            <AdminDynamicPages title='Data Dapil' active='votearea' page ={adminvoteareapage}/>
           </Route>
 
           <Route path="/dashboardkandidat">

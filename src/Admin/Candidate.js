@@ -5,7 +5,6 @@ const Candidate = () => {
     const {data:jabatans} = useFetch('http://localhost:8080/si-pemilu/api/v1/calon-jabatan.json');
     
     const [kandidats, setKandidats] = useState(null);
-    const [once, setOnce] = useState(null);
     
     const [nama, setNama] = useState('');
     const [nik, setNik] = useState('');
@@ -156,7 +155,6 @@ const Candidate = () => {
         })
         .then(data => {
             setKandidats(data);
-            // console.log(data);
         })
         .catch(err => {
             console.log(err.message);
@@ -216,6 +214,8 @@ const Candidate = () => {
             setDapilVisibility('none');
         }
 
+        console.log(idJabatan, kodeProvinsi);
+
         if (idJabatan != null && kodeProvinsi != null) {
             loadDapil(idJabatan, kodeProvinsi);
         }
@@ -230,7 +230,6 @@ const Candidate = () => {
         setJenisKelamin('pria');
         setPartai('');
         setNoUrut('');
-        setKodeProvinsi(null);
         loadWilayahProvinsi();
     }
 
@@ -244,7 +243,7 @@ const Candidate = () => {
         })
         .then(data => {
             console.log(data)
-            window.location.href = "/Kandidat";
+            window.location.href = "/kandidat";
         })
         .catch(err => {
             console.log(err.message);
@@ -301,59 +300,6 @@ const Candidate = () => {
             console.log(err.message);
         });
     }
-
-    // const editDeleteModal = async (idKan) =>{
-    //     const url = 'http://localhost:8080/si-pemilu/api/v1/kandidat/' + idKan + '.json';
-    //     try {
-    //         const response = await fetch(url);
-    //         let data = await response.json();
-
-    //         setId(idKan);
-    //         setNama(data.nama);
-    //         setNik(data.nik);
-    //         setEmail(data.email);
-    //         setPassword('');
-    //         setJenisKelamin(data.jenis_kelamin);
-    //         setPartai(data.partai);
-    //         setIdJabatan(data.id_jabatan);
-    //         setNoUrut(data.no_urut);
-
-    //         let wilayah = data.kode_wilayah.split('.');
-    //         console.log(data);
-    //         console.log(wilayah);
-                
-    //         if (idJabatan == 1 || idJabatan == 2 || idJabatan == 4 || idJabatan == 5) {
-    //             setKodeProvinsi(wilayah[0]);
-    //             setKodeKabKot(null);
-    //             setKodeKec(null);
-    //             setKodeDes(null);
-    //         }else if (idJabatan == 6 || idJabatan == 7 || idJabatan == 8) {
-    //             setKodeProvinsi(wilayah[0]);
-    //             setKodeKabKot(wilayah[0] + '.' + wilayah[1]);
-    //             setKodeKec(null);
-    //             setKodeDes(null);
-    //         }else{
-    //             setKodeProvinsi(wilayah[0]);
-    //             console.log('kode prov'+wilayah[0])
-    //             setKodeKabKot(wilayah[0] + '.' + wilayah[1]);
-    //             console.log('kode kota' + wilayah[0] + '.' + wilayah[1])
-    //             setKodeKec(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2]);
-    //             console.log('kode kecamatan'+wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2])
-    //             setKodeDes(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2] + '.' + wilayah[3]);
-    //             console.log('kode kecamatan'+wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2] + '.' + wilayah[3])
-    //         }
-            
-    //         if (idJabatan == 2 || idJabatan == 5 || idJabatan == 8) {
-    //             setKodeDapil(data.kode_dapil);
-    //         }
-                
-    //         const newCandidate = {id, nama, nik, email, password, jenis_kelamin, partai, kode_dapil:kodeDapil, no_urut:noUrut, id_jabatan:idJabatan, id_admin:idAdmin, kode_wilayah:kodeWilayah};
-    //         console.log(newCandidate);
-
-    //     } catch (err) {
-    //         console.log(err.message);
-    //     }
-    // }
 
     const update = (e) =>{
         e.preventDefault();
@@ -453,7 +399,7 @@ const Candidate = () => {
                                     <p className="text-xs text-secondary mb-0">{kandidat.kode_dapil && kandidat.kandidat_dapil.nama_dapil}</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs text-weight mb-0">{kandidat.admin.nama}</p>
+                                    <p className="text-xs text-weight mb-0">{kandidat.admin && kandidat.admin.nama}</p>
                                 </td>
                                 <td className="align-middle">
                                     <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" onClick={() => {editDeleteModal(kandidat.id)}}>

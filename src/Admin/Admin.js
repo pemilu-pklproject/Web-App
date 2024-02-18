@@ -4,7 +4,7 @@ import useFetch from "../useFetch";
 const Admin = () => {
     let i = 1;
 
-    const [idAdmin, setIdAdmin] = useState(null);
+    const [id, setId] = useState(null);
     const [nama, setNama] = useState(null);
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
@@ -22,6 +22,60 @@ const Admin = () => {
       const newAdmin = { nama, email, password};
       fetch(url, {
         method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(newAdmin),
+      }).then(res => {
+          return res.json();
+      })
+      .then(data => {
+          console.log(data)
+          window.location.href = "/admin";
+      })
+      .catch(err => {
+          console.log(err.message);
+      });
+    }
+
+    const editDeleteModal = async (admId) => {
+      const url = 'http://localhost:8080/si-pemilu/api/v1/admin/' + admId + '.json';
+      try {
+        const response = await fetch(url);
+        let data = await response.json();
+        data = data[0];
+
+        setId(admId);
+        setNama(data.nama);
+        setEmail(data.email);
+        setPassword('');
+      } catch (err) {
+          console.log(err.message);
+      }
+    }
+
+    const update = () => {
+      const url = 'http://localhost:8080/si-pemilu/api/v1/admin/update/' + id;
+      const newAdmin = { nama, email, password};
+      fetch(url, {
+        method: 'PUT',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(newAdmin),
+      }).then(res => {
+          return res.json();
+      })
+      .then(data => {
+          console.log(data)
+          window.location.href = "/admin";
+      })
+      .catch(err => {
+          console.log(err.message);
+      });
+    }
+
+    const delet = () => {
+      const url = 'http://localhost:8080/si-pemilu/api/v1/admin/delete/' + id;
+      const newAdmin = { nama, email, password};
+      fetch(url, {
+        method: 'DELETE',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(newAdmin),
       }).then(res => {
@@ -80,11 +134,11 @@ const Admin = () => {
                                       <p className="text-xs font-weight-bold mb-0">{adm.email}</p>
                                   </td>
                                   <td className="align-middle">
-                                      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
+                                      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" onClick={() => {editDeleteModal(adm.id)}}>
                                           <i class="fas fa-pencil-alt"></i>
                                       </button>
                                       &nbsp;
-                                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onClick={() => {editDeleteModal(adm.id)}}>
                                           <i class="far fa-trash-alt"></i>
                                       </button>
                                   </td>
@@ -213,6 +267,7 @@ const Admin = () => {
             aria-label="Close"
           />
         </div>
+        <form onSubmit={update}>
         <div className="modal-body">
             <div className="row align-items-center mt-3">
                 <div className="col-12">
@@ -273,10 +328,11 @@ const Admin = () => {
           >
             Tutup
           </button>
-          <button type="button" className="btn btn-warning">
+          <button type="submit" className="btn btn-warning">
             Simpan Perubahan
           </button>
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -303,6 +359,7 @@ const Admin = () => {
             aria-label="Close"
           />
         </div>
+        <form onSubmit={delet}>
         <div className="modal-body">
             <div className="row align-items-center mt-3">
                 <div className="col-12">
@@ -366,10 +423,11 @@ const Admin = () => {
           >
             Tutup
           </button>
-          <button type="button" className="btn btn-danger">
+          <button type="submit" className="btn btn-danger">
             Hapus Admin
           </button>
         </div>
+        </form>
       </div>
     </div>
   </div>

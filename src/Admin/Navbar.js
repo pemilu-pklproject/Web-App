@@ -146,35 +146,11 @@ const Navbar = (props) => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className={(active=='position') ? "nav-link active":"nav-link"} to="/jabatan">
-                    <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fa fa-award text-primary text-sm opacity-10"></i>
-                    </div>
-                    <span className="nav-link-text ms-1">Jabatan</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
                   <Link className={(active=='vote') ? "nav-link active":"nav-link"} to="/hasilsuara">
                     <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fa fa-poll text-primary text-sm opacity-10"></i>
                     </div>
                     <span className="nav-link-text ms-1">Hasil Pemilihan</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className={(active=='region') ? "nav-link active":"nav-link"} to="/wilayah">
-                    <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fa fa-map-marker-alt text-primary text-sm opacity-10"></i>
-                    </div>
-                    <span className="nav-link-text ms-1">Wilayah</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className={(active=='votearea') ? "nav-link active":"nav-link"} to="/dapil">
-                    <div className="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-map-pin text-primary text-sm opacity-10"></i>
-                    </div>
-                    <span className="nav-link-text ms-1">Dapil</span>
                   </Link>
                 </li>
               </ul>

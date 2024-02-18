@@ -17,7 +17,7 @@ const Volunteer = () => {
     const id_kandidat = 1;
 
     const {data:relawans} = useFetch('http://localhost:8080/si-pemilu/api/v1/relawan/data/'+ id_kandidat +'.json');
-    // console.log(relawans);
+    console.log(relawans);
     let i = 1;
 
     const insertModal = () => {
