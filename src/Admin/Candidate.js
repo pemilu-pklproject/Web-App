@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useFetch from "../useFetch";
 
 const Candidate = () => {
+    const {data:jabatans} = useFetch('http://localhost:8080/si-pemilu/api/v1/calon-jabatan.json');
+    
+    const [kandidats, setKandidats] = useState(null);
+    const [once, setOnce] = useState(null);
+    
     const [nama, setNama] = useState('');
     const [nik, setNik] = useState('');
     const [email, setEmail] = useState('');
@@ -9,25 +14,322 @@ const Candidate = () => {
     const [jenis_kelamin, setJenisKelamin] = useState('pria');
     const [partai, setPartai] = useState('');
     const [noUrut, setNoUrut] = useState('');
-    const [idDapil, setIdDapil] = useState('');
-    const [dapil, setDapil] = useState('');
-    const [idJabatan, setIdJabatan] = useState('');
-    const [jabatan, setJabatan] = useState('');
-    const [idAdmin, setIdAdmin] = useState('');
-    const [admin, setAdmin] = useState('');
-    const [idWilayah, setIdWilayah] = useState('');
-    const [wilayah, setWilayah] = useState('');
-
+    const [idJabatan, setIdJabatan] = useState(1);
+    let idAdmin = 2;
+    
+    const [listProvinsi, setListProvinsi] = useState(null);
+    const [listKabupatenKota, setListKabupatenKota] = useState(null);
+    const [listKecamatan, setListKecamatan] = useState(null);
+    const [listDesaKelurahan, setListDesaKelurahan] = useState(null);
+    const [listDapil, setListDapil] = useState(null);
+    
+    const [kodeWilayah, setKodeWilayah] = useState(null);
+    const [kodeProvinsi, setKodeProvinsi] = useState(null);
+    const [kodeKabKot, setKodeKabKot] = useState(null);
+    const [kodeKec, setKodeKec] = useState(null);
+    const [kodeDes, setKodeDes] = useState(null);
+    
+    const [kodeDapil, setKodeDapil] = useState(null);
+    
     const [id, setId] = useState(null);
+    
+    const [wilKabKotaVisibility, setWilKabKotaVisibility] = useState('');
+    const [wilKecVisibility, setWilKecVisibility] = useState('');
+    const [wilDesVisibility, setWilDesVisibility] = useState('');
+    
+    const [dapilVisibility, setDapilVisibility] = useState('none');
+    
+    let i = 1;
+    
+    // const loadJabatan = async () =>{
+        //     const url = 'http://localhost:8080/si-pemilu/api/v1/calon-jabatan.json';
+        //     try {
+            //         const response = await fetch(url);
+            //         let data = await response.json();
+            //         data = data[0].id;
+            
+            //         setIdJabatan(data);
+            
+            //     } catch (err) {
+                //         console.log(err.message);
+                //     }
+                // }
+                
+                // useEffect(() => {
+                    //     loadJabatan();
+                    //     console.log(idJabatan);
+                    // }, []);
+                    
+    const loadWilayahDesaKelurahan = async (kodeKecamatan) =>{
+        const url = 'http://localhost:8080/si-pemilu/api/v1/wilayah/kelurahan-desa/' + kodeKecamatan + '.json';
+        try {
+            const response = await fetch(url);
+            let data = await response.json();
+            let kode_desakelurahan = data[0].kode;
+            
+            setKodeDes(kode_desakelurahan);
+            setListDesaKelurahan(data);
+            
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+    
+    const loadWilayahKecamatan = async (kodeKabupatenKota) =>{
+        const url = 'http://localhost:8080/si-pemilu/api/v1/wilayah/kecamatan/' + kodeKabupatenKota + '.json';
+        try {
+            const response = await fetch(url);
+            let data = await response.json();
+            let kode_kecamatan = data[0].kode;
+            
+            setKodeKec(kode_kecamatan);
+            setListKecamatan(data);
+            // loadWilayahDesaKelurahan(kode_kecamatan);
+            
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+    
+    const loadWilayahKabupatenKota = async (kodeProv) =>{
+        const url = 'http://localhost:8080/si-pemilu/api/v1/wilayah/kabupaten-kota/' + kodeProv + '.json';
+        try {
+            const response = await fetch(url);
+            let data = await response.json();
+            let kode_kabupatenkota = data[0].kode;
+            
+            setKodeKabKot(kode_kabupatenkota);
+            setListKabupatenKota(data);
+            // loadWilayahKecamatan(kode_kabupatenkota);
+            
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+    
+    const loadDapil = async (idJabatan, kodeWilayah) =>{
+        const url = 'http://localhost:8080/si-pemilu/api/v1/dapil/' + idJabatan + '/' + kodeWilayah + '.json';
+        try {
+            const response = await fetch(url);
+            let data = await response.json();
+            let kode_dapil = data[0].kode_dapil;
+            
+            if (kodeDapil == null) {
+                setKodeDapil(kode_dapil);
+            }
+            setListDapil(data);
+            
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+    
+    const loadWilayahProvinsi = async () =>{
+        const url = 'http://localhost:8080/si-pemilu/api/v1/wilayah/provinsi.json';
+        
+        try {
+            const response = await fetch(url);
+            let data = await response.json();
+            let kode_provinsi = data[0].kode;
+            
+            setListProvinsi(data);
+            if (kodeProvinsi === null) {
+                setKodeProvinsi(kode_provinsi);
+                loadDapil(idJabatan, kode_provinsi);
+                // loadWilayahKabupatenKota(kode_provinsi);
+            }else{
+                // loadWilayahKabupatenKota(kodeProvinsi);
+            }
+            
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
 
+    const getAllKandidat = async () =>{
+        const url = 'http://localhost:8080/si-pemilu/api/v1/data/kandidat.json';
+
+        fetch(url)
+        .then(res => {
+            if (!res.ok) {
+                throw Error('could not fetch the data for that resource');
+            }
+            return res.json();
+        })
+        .then(data => {
+            setKandidats(data);
+            // console.log(data);
+        })
+        .catch(err => {
+            console.log(err.message);
+        });
+    }
+    
+    useEffect(() => {
+        getAllKandidat();
+    }, []);
+
+    useEffect(() => {
+        loadWilayahProvinsi();
+    }, []);
+    
+    useEffect(() => {
+        loadWilayahKabupatenKota(kodeProvinsi);
+    }, [kodeProvinsi]);
+    
+    useEffect(() => {
+        loadWilayahKecamatan(kodeKabKot);
+    }, [kodeKabKot]);
+
+    useEffect(() => {
+        loadWilayahDesaKelurahan(kodeKec);
+    }, [kodeKec]);
+
+    useEffect(() => {
+        if (idJabatan == 1 || idJabatan == 2 || idJabatan == 4 || idJabatan == 5) {
+            setWilKabKotaVisibility('none');
+            setWilKecVisibility('none');
+            setWilDesVisibility('none');
+        }else if (idJabatan == 6 || idJabatan == 7 || idJabatan == 8) {
+            setWilKabKotaVisibility('');
+            setWilKecVisibility('none');
+            setWilDesVisibility('none');
+        }else{
+            setWilKabKotaVisibility('');
+            setWilKecVisibility('');
+            setWilDesVisibility('');
+        }
+    }, [idJabatan]);
+
+    useEffect(() => {
+        if (idJabatan == 1 || idJabatan == 2 || idJabatan == 4 || idJabatan == 5) {
+            setKodeWilayah(kodeProvinsi);
+        }else if (idJabatan == 6 || idJabatan == 7 || idJabatan == 8) {
+            setKodeWilayah(kodeKabKot);
+        }else{
+            setKodeWilayah(kodeDes);
+        }
+    }, [idJabatan, kodeProvinsi, kodeKabKot, kodeDes]);
+
+    useEffect(() => {
+        if (idJabatan == 2 || idJabatan == 5 || idJabatan == 8) {
+            setDapilVisibility('');
+        }else{
+            setDapilVisibility('none');
+        }
+
+        if (idJabatan != null && kodeProvinsi != null) {
+            loadDapil(idJabatan, kodeProvinsi);
+        }
+    }, [idJabatan, kodeProvinsi]);
+
+    const insertModal = () =>{
+        setNama('');
+        setNik('');
+        setEmail('');
+        setIdJabatan(1);
+        setPassword('');
+        setJenisKelamin('pria');
+        setPartai('');
+        setNoUrut('');
+        setKodeProvinsi(null);
+        loadWilayahProvinsi();
+    }
+
+    const insertNewCandidate = (newCandidate) =>{
+        fetch('http://localhost:8080/si-pemilu/api/v1/kandidat/add', {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(newCandidate),
+        }).then(res => {
+            return res.json();
+        })
+        .then(data => {
+            console.log(data)
+            window.location.href = "/Kandidat";
+        })
+        .catch(err => {
+            console.log(err.message);
+        });
+    }
+
+    const insert = (e) =>{
+        e.preventDefault();
+        
+        if (idJabatan == 2 || idJabatan == 5 || idJabatan == 8) {
+            const newCandidate = {nama, nik, email, password, jenis_kelamin, partai, kode_dapil:kodeDapil, no_urut:noUrut, id_jabatan:idJabatan, id_admin:idAdmin, kode_wilayah:kodeWilayah};
+            insertNewCandidate(newCandidate);
+        }else{
+            const newCandidate = {nama, nik, email, password, jenis_kelamin, partai, kode_dapil:null, no_urut:noUrut, id_jabatan:idJabatan, id_admin:idAdmin, kode_wilayah:kodeWilayah};
+            insertNewCandidate(newCandidate);
+        }
+    }
+
+    const stateUpdate = (data) => {
+        setNama(data.nama);
+            setNik(data.nik);
+            setEmail(data.email);
+            setPassword('');
+            setJenisKelamin(data.jenis_kelamin);
+            setPartai(data.partai);
+            setIdJabatan(data.id_jabatan);
+            setNoUrut(data.no_urut);
+
+            let wilayah = data.kode_wilayah.split(".");
+            console.log(wilayah[0]); 
+            
+            if (idJabatan == 1 || idJabatan == 2 || idJabatan == 4 || idJabatan == 5) {
+                setKodeProvinsi(wilayah[0]);
+                setKodeKabKot(null);
+                setKodeKec(null);
+                setKodeDes(null);
+            }else if (idJabatan == 6 || idJabatan == 7 || idJabatan == 8) {
+                setKodeProvinsi(wilayah[0]);
+                setKodeKabKot(wilayah[0] + '.' + wilayah[1]);
+                setKodeKec(null);
+                setKodeDes(null);
+            }else{
+                setKodeProvinsi(wilayah[0]);
+                setKodeKabKot(wilayah[0] + '.' + wilayah[1]);
+                setKodeKec(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2]);
+                setKodeDes(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2] + '.' + wilayah[3]);
+            }
+            
+            if (idJabatan == 2 || idJabatan == 5 || idJabatan == 8) {
+                setKodeDapil(data.kode_dapil);
+            }
+    }
+
+    const editDeleteModal = async (idKan) =>{
+        const url = 'http://localhost:8080/si-pemilu/api/v1/kandidat/' + idKan + '.json';
+        try {
+            const response = await fetch(url);
+            let data = await response.json();
+
+            setId(idKan);
+
+            stateUpdate(data);
+            
+            const newCandidate = {nama, nik, email, password, jenis_kelamin, partai, kode_dapil:kodeDapil, no_urut:noUrut, id_jabatan:idJabatan, id_admin:idAdmin, kode_wilayah:kodeWilayah};
+            console.log(newCandidate);
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
+    const update = () =>{
+        console.log('test');
+    }
+    
     return ( 
+        
         <div>
         <div className="row">
             <div className="col-12">
                 <div className="card mb-4">
                 <div className="card-header pb-0">
                     <h6>Tabel Kandidat</h6>
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal" onClick={insertModal}>
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
@@ -46,9 +348,6 @@ const Candidate = () => {
                                 Jabatan
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Data Login
-                                </th>
-                                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                 Admin
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
@@ -57,106 +356,38 @@ const Candidate = () => {
                             </tr>
                             </thead>
                             <tbody>
+                            {kandidats && kandidats.map((kandidat) => (
                             <tr>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>1</p>
+                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>{i++}</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Bambang</p>
-                                    <p className="text-xs text-secondary mb-0">1272929382939</p>
-                                    <p className="text-xs text-secondary mb-0">Laki-Laki</p>
+                                    <p className="text-xs font-weight-bold mb-0">{kandidat.nama}</p>
+                                    <p className="text-xs text-secondary mb-0">{kandidat.nik}</p>
+                                    <p className="text-xs text-secondary mb-0">{kandidat.jenis_kelamin}</p>
+                                    <p className="text-xs text-secondary mb-0">{kandidat.email}</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">01</p>
-                                    <p className="text-xs font-weight-bold mb-0">Gubernur</p>
-                                    <p className="text-xs text-secondary mb-0">Partai Hanura</p>
-                                    <p className="text-xs text-secondary mb-0">Kota Medan</p>
-                                    <p className="text-xs text-secondary mb-0">ACEH</p>
+                                    <p className="text-xs font-weight-bold mb-0">{kandidat.no_urut}</p>
+                                    <p className="text-xs font-weight-bold mb-0">{kandidat.jbtn.jabatan}</p>
+                                    <p className="text-xs text-secondary mb-0">{kandidat.partai}</p>
+                                    <p className="text-xs text-secondary mb-0">{kandidat.wilayah.nama}</p>
+                                    <p className="text-xs text-secondary mb-0">{kandidat.kode_dapil && kandidat.kandidat_dapil.nama_dapil}</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs text-secondary mb-0">bambangganteng@gmail.com</p>
-                                    <p className="text-xs text-secondary mb-0">bambanggans</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs text-weight mb-0">Rio</p>
+                                    <p className="text-xs text-weight mb-0">{kandidat.admin.nama}</p>
                                 </td>
                                 <td className="align-middle">
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
+                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" onClick={() => {editDeleteModal(kandidat.id)}}>
                                         <i class="fas fa-pencil-alt"></i>
                                     </button>
                                     &nbsp;
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onClick={() => {editDeleteModal(kandidat.id)}}>
                                         <i class="far fa-trash-alt"></i>
                                     </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>2</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Ilman</p>
-                                    <p className="text-xs text-secondary mb-0">1272929380939</p>
-                                    <p className="text-xs text-secondary mb-0">Laki-Laki</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">02</p>
-                                    <p className="text-xs font-weight-bold mb-0">Gubernur</p>
-                                    <p className="text-xs text-secondary mb-0">Partai Demokrat</p>
-                                    <p className="text-xs text-secondary mb-0">Kota Medan</p>
-                                    <p className="text-xs text-secondary mb-0">ACEH</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs text-secondary mb-0">ilmangans@gmail.com</p>
-                                    <p className="text-xs text-secondary mb-0">ilman</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs text-weight mb-0">Rio</p>
-                                </td>
-                                <td className="align-middle">
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>3</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Junaedi</p>
-                                    <p className="text-xs text-secondary mb-0">1288929382939</p>
-                                    <p className="text-xs text-secondary mb-0">Laki-Laki</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">03</p>
-                                    <p className="text-xs font-weight-bold mb-0">Gubernur</p>
-                                    <p className="text-xs text-secondary mb-0">Partai Golkar</p>
-                                    <p className="text-xs text-secondary mb-0">Kota Medan</p>
-                                    <p className="text-xs text-secondary mb-0">ACEH</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs text-secondary mb-0">junaedisimalungun@gmail.com</p>
-                                    <p className="text-xs text-secondary mb-0">junaedi</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs text-weight mb-0">Rio</p>
-                                </td>
-                                <td className="align-middle">
-                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    &nbsp;
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            
+                            ))}
                             </tbody>
                         </table>
                     </div>
@@ -187,6 +418,7 @@ const Candidate = () => {
             aria-label="Close"
           />
         </div>
+        <form onSubmit={insert}>
         <div className="modal-body">
             <div className="row align-items-center">
                 <div className="col-12">
@@ -199,7 +431,9 @@ const Candidate = () => {
                     type="text"
                     id="nama"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
+                    value={nama} 
+                    onChange={(e) => setNama(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -210,9 +444,14 @@ const Candidate = () => {
                     </label>
                 </div>
                 <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="jeniskelamin">
-                        <option selected value="l">Laki-Laki</option>
-                        <option value="p">Perempuan</option>
+                    <select 
+                        class="form-select" 
+                        id="jeniskelamin"
+                        value={jenis_kelamin} 
+                        onChange={(e) => setJenisKelamin(e.target.value)}
+                        >
+                        <option value="pria">Pria</option>
+                        <option value="wanita">Wanita</option>
                     </select>
                 </div>
             </div>
@@ -227,7 +466,9 @@ const Candidate = () => {
                     type="text"
                     id="nik"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
+                    value={nik} 
+                    onChange={(e) => setNik(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -242,7 +483,9 @@ const Candidate = () => {
                     type="email"
                     id="email"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -257,7 +500,9 @@ const Candidate = () => {
                     type="text"
                     id="password"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -268,22 +513,16 @@ const Candidate = () => {
                     </label>
                 </div>
                 <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="jabatan">
-                        <option selected value="presiden">Presiden</option>
-                        <option value="gubernur">Gubernur</option>
-                    </select>
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="dapil" className="col-form-label">
-                    Dapil :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="dapil">
-                        <option selected value="l">Kota Medan</option>
-                        <option value="p">Kota Jakarta</option>
+                    <select 
+                        class="form-select" 
+                        aria-label="Default select example" 
+                        id="jabatan"
+                        value={idJabatan}
+                        onChange={(e) => setIdJabatan(e.target.value)}
+                    >
+                        { jabatans && jabatans.map((jabatan) => (
+                            <option value={jabatan.id}>{jabatan.jabatan}</option>
+                        ))}
                     </select>
                 </div>
             </div>
@@ -294,9 +533,103 @@ const Candidate = () => {
                     </label>
                 </div>
                 <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="wilayah">
-                        <option selected value="aceh">Aceh</option>
-                        <option value="sumaterautara">Sumatera Utara</option>
+                    <div className="row">
+                        <div className="col-2">
+                            Provinsi
+                        </div>
+                        <div className="col-10">
+                            <select 
+                                class="form-select" 
+                                aria-label="Default select example" 
+                                id="provinsi"
+                                value={kodeProvinsi}
+                                onChange={(e) => setKodeProvinsi(e.target.value)}
+                            >
+                                { listProvinsi && listProvinsi.map((provinsi) => (
+                                    <option value={provinsi.kode}>{provinsi.nama}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-12 mt-3" style={{display:wilKabKotaVisibility}}>
+                    <div className="row">
+                        <div className="col-2">
+                            Kabupaten / Kota
+                        </div>
+                        <div className="col-10">
+                            <select 
+                                class="form-select" 
+                                aria-label="Default select example" 
+                                id="provinsi"
+                                value={kodeKabKot}
+                                onChange={(e) => setKodeKabKot(e.target.value)}
+                            >
+                                { listKabupatenKota && listKabupatenKota.map((kabupatenKota) => (
+                                    <option value={kabupatenKota.kode}>{kabupatenKota.nama}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-12 mt-3" style={{display:wilKecVisibility}}>
+                    <div className="row">
+                        <div className="col-2">
+                            Kecamatan
+                        </div>
+                        <div className="col-10">
+                            <select 
+                                class="form-select" 
+                                aria-label="Default select example" 
+                                id="provinsi"
+                                value={kodeKec}
+                                onChange={(e) => setKodeKec(e.target.value)}
+                            >
+                                { listKecamatan && listKecamatan.map((kecamatan) => (
+                                    <option value={kecamatan.kode}>{kecamatan.nama}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-12 mt-3" style={{display:wilDesVisibility}}>
+                    <div className="row">
+                        <div className="col-2">
+                            Desa
+                        </div>
+                        <div className="col-10">
+                            <select 
+                                class="form-select" 
+                                aria-label="Default select example" 
+                                id="provinsi"
+                                value={kodeDes}
+                                onChange={(e) => setKodeDes(e.target.value)}
+                            >
+                                { listDesaKelurahan && listDesaKelurahan.map((desaKelurahan) => (
+                                    <option value={desaKelurahan.kode}>{desaKelurahan.nama}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row align-items-center mt-3" style={{display:dapilVisibility}}>
+                <div className="col-12">
+                    <label htmlFor="dapil" className="col-form-label">
+                    Dapil :
+                    </label>
+                </div>
+                <div className="col-12">
+                    <select 
+                        class="form-select" 
+                        aria-label="Default select example" 
+                        id="provinsi"
+                        value={kodeDapil}
+                        onChange={(e) => setKodeDapil(e.target.value)}
+                    >
+                        { listDapil && listDapil.map((dapil) => (
+                            <option value={dapil.kode_dapil}>{dapil.nama_dapil}</option>
+                        ))}
                     </select>
                 </div>
             </div>
@@ -311,7 +644,9 @@ const Candidate = () => {
                     type="text"
                     id="nourut"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
+                    value={noUrut} 
+                    onChange={(e) => setNoUrut(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -326,21 +661,10 @@ const Candidate = () => {
                     type="text"
                     id="partai"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
+                    value={partai} 
+                    onChange={(e) => setPartai(e.target.value)}
+                    required
                     />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="jeniskelamin" className="col-form-label">
-                    Admin :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="jeniskelamin">
-                        <option selected value="rio">Rio</option>
-                        <option value="rina">Rina</option>
-                    </select>
                 </div>
             </div>
         </div>
@@ -352,10 +676,11 @@ const Candidate = () => {
           >
             Tutup
           </button>
-          <button type="button" className="btn btn-success">
+          <button type="submit" className="btn btn-success">
             Simpan Data Kandidat
           </button>
         </div>
+        </form> 
       </div>
     </div>
   </div>
@@ -382,6 +707,7 @@ const Candidate = () => {
             aria-label="Close"
           />
         </div>
+        <form onSubmit={update}>
         <div className="modal-body">
             <div className="row align-items-center">
                 <div className="col-12">
@@ -394,8 +720,9 @@ const Candidate = () => {
                     type="text"
                     id="nama"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="bambang"
+                    value={nama} 
+                    onChange={(e) => setNama(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -406,9 +733,14 @@ const Candidate = () => {
                     </label>
                 </div>
                 <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="jeniskelamin">
-                        <option selected value="l">Laki-Laki</option>
-                        <option value="p">Perempuan</option>
+                    <select 
+                        class="form-select" 
+                        id="jeniskelamin"
+                        value={jenis_kelamin} 
+                        onChange={(e) => setJenisKelamin(e.target.value)}
+                        >
+                        <option value="pria">Pria</option>
+                        <option value="wanita">Wanita</option>
                     </select>
                 </div>
             </div>
@@ -423,8 +755,9 @@ const Candidate = () => {
                     type="text"
                     id="nik"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="12738232382938"
+                    value={nik} 
+                    onChange={(e) => setNik(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -439,8 +772,9 @@ const Candidate = () => {
                     type="email"
                     id="email"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="bambang@gmail.com"
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -455,8 +789,9 @@ const Candidate = () => {
                     type="text"
                     id="password"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="bambangtest"
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -467,22 +802,16 @@ const Candidate = () => {
                     </label>
                 </div>
                 <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="jabatan">
-                        <option selected value="presiden">presiden</option>
-                        <option value="gubernur">Gubernur</option>
-                    </select>
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="dapil" className="col-form-label">
-                    Dapil :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="dapil">
-                        <option selected value="l">Kota Medan</option>
-                        <option value="p">Kota Jakarta</option>
+                    <select 
+                        class="form-select" 
+                        aria-label="Default select example" 
+                        id="jabatan"
+                        value={idJabatan}
+                        onChange={(e) => setIdJabatan(e.target.value)}
+                    >
+                        { jabatans && jabatans.map((jabatan) => (
+                            <option value={jabatan.id}>{jabatan.jabatan}</option>
+                        ))}
                     </select>
                 </div>
             </div>
@@ -493,9 +822,103 @@ const Candidate = () => {
                     </label>
                 </div>
                 <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="wilayah">
-                        <option selected value="aceh">Aceh</option>
-                        <option value="sumaterautara">Sumatera Utara</option>
+                    <div className="row">
+                        <div className="col-2">
+                            Provinsi
+                        </div>
+                        <div className="col-10">
+                            <select 
+                                class="form-select" 
+                                aria-label="Default select example" 
+                                id="provinsi"
+                                value={kodeProvinsi}
+                                onChange={(e) => setKodeProvinsi(e.target.value)}
+                            >
+                                { listProvinsi && listProvinsi.map((provinsi) => (
+                                    <option value={provinsi.kode}>{provinsi.nama}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-12 mt-3" style={{display:wilKabKotaVisibility}}>
+                    <div className="row">
+                        <div className="col-2">
+                            Kabupaten / Kota
+                        </div>
+                        <div className="col-10">
+                            <select 
+                                class="form-select" 
+                                aria-label="Default select example" 
+                                id="provinsi"
+                                value={kodeKabKot}
+                                onChange={(e) => setKodeKabKot(e.target.value)}
+                            >
+                                { listKabupatenKota && listKabupatenKota.map((kabupatenKota) => (
+                                    <option value={kabupatenKota.kode}>{kabupatenKota.nama}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-12 mt-3" style={{display:wilKecVisibility}}>
+                    <div className="row">
+                        <div className="col-2">
+                            Kecamatan
+                        </div>
+                        <div className="col-10">
+                            <select 
+                                class="form-select" 
+                                aria-label="Default select example" 
+                                id="provinsi"
+                                value={kodeKec}
+                                onChange={(e) => setKodeKec(e.target.value)}
+                            >
+                                { listKecamatan && listKecamatan.map((kecamatan) => (
+                                    <option value={kecamatan.kode}>{kecamatan.nama}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-12 mt-3" style={{display:wilDesVisibility}}>
+                    <div className="row">
+                        <div className="col-2">
+                            Desa
+                        </div>
+                        <div className="col-10">
+                            <select 
+                                class="form-select" 
+                                aria-label="Default select example" 
+                                id="provinsi"
+                                value={kodeDes}
+                                onChange={(e) => setKodeDes(e.target.value)}
+                            >
+                                { listDesaKelurahan && listDesaKelurahan.map((desaKelurahan) => (
+                                    <option value={desaKelurahan.kode}>{desaKelurahan.nama}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="row align-items-center mt-3" style={{display:dapilVisibility}}>
+                <div className="col-12">
+                    <label htmlFor="dapil" className="col-form-label">
+                    Dapil :
+                    </label>
+                </div>
+                <div className="col-12">
+                    <select 
+                        class="form-select" 
+                        aria-label="Default select example" 
+                        id="provinsi"
+                        value={kodeDapil}
+                        onChange={(e) => setKodeDapil(e.target.value)}
+                    >
+                        { listDapil && listDapil.map((dapil) => (
+                            <option value={dapil.kode_dapil}>{dapil.nama_dapil}</option>
+                        ))}
                     </select>
                 </div>
             </div>
@@ -510,8 +933,9 @@ const Candidate = () => {
                     type="text"
                     id="nourut"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="01"
+                    value={noUrut} 
+                    onChange={(e) => setNoUrut(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -526,22 +950,10 @@ const Candidate = () => {
                     type="text"
                     id="partai"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="Partai Hanura"
+                    value={partai} 
+                    onChange={(e) => setPartai(e.target.value)}
+                    required
                     />
-                </div>
-            </div>
-            <div className="row align-items-center mt-3">
-                <div className="col-12">
-                    <label htmlFor="jeniskelamin" className="col-form-label">
-                    Admin :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <select class="form-select" aria-label="Default select example" id="jeniskelamin">
-                        <option selected value="rio">Rio</option>
-                        <option value="rina">Rina</option>
-                    </select>
                 </div>
             </div>
         </div>
@@ -553,10 +965,11 @@ const Candidate = () => {
           >
             Tutup
           </button>
-          <button type="button" className="btn btn-warning">
+          <button type="submit" className="btn btn-warning">
             Simpan Perubahan
           </button>
         </div>
+        </form>
       </div>
     </div>
   </div>

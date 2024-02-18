@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import useFetch from "../useFetch";
 
 const Volunteer = () => {
@@ -16,8 +15,6 @@ const Volunteer = () => {
     const [isSaksi, setIsSaksi] = useState();
 
     const id_kandidat = 1;
-
-    const history = useHistory();
 
     const {data:relawans} = useFetch('http://localhost:8080/si-pemilu/api/v1/relawan/data/'+ id_kandidat +'.json');
     // console.log(relawans);

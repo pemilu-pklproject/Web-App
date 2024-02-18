@@ -2,8 +2,6 @@ import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 
 const Dynamic = (props) => {
-    console.log("test");
-
     const active = props.active;
     const page = props.page;
     const title = props.title;
