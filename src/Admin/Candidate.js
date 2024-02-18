@@ -284,16 +284,18 @@ const Candidate = () => {
             console.log(wilayah);
             
             setKodeProvinsi(wilayah[0]);
-            setKodeKabKot(wilayah[0] + '.' + wilayah[1]);
-            setKodeKec(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2]);
-            setKodeDes(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2] + '.' + wilayah[3]);
             
-            if (idJabatan == 2 || idJabatan == 5 || idJabatan == 8) {
-                setKodeDapil(data.kode_dapil);
-            }
-                
-            const newCandidate = {id, nama, nik, email, password, jenis_kelamin, partai, kode_dapil:kodeDapil, no_urut:noUrut, id_jabatan:idJabatan, id_admin:idAdmin, kode_wilayah:kodeWilayah}
-            // console.log(newCandidate);
+            setTimeout(() => {
+                setKodeKabKot(wilayah[0] + '.' + wilayah[1]);
+            }, 100);
+            setTimeout(() => {
+                setKodeKec(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2]);
+            }, 200);
+            setTimeout(() => {
+                setKodeDes(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2] + '.' + wilayah[3]);    
+            }, 300);
+            
+            setKodeDapil(data.kode_dapil);
         })
         .catch(err => {
             console.log(err.message);
