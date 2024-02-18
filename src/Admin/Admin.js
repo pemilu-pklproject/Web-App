@@ -1,9 +1,40 @@
 import { useState } from 'react';
+import useFetch from "../useFetch";
 
 const Admin = () => {
     let i = 1;
 
-    const [username, setUsername] = useState('');
+    const [idAdmin, setIdAdmin] = useState(null);
+    const [nama, setNama] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+
+    const {data:admin} = useFetch('http://localhost:8080/si-pemilu/api/v1/admin.json');
+
+    const insertModal = () => {
+      setNama('');
+      setEmail('');
+      setPassword('');
+    }
+
+    const insert = () => {
+      const url = 'http://localhost:8080/si-pemilu/api/v1/admin/add';
+      const newAdmin = { nama, email, password};
+      fetch(url, {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(newAdmin),
+      }).then(res => {
+          return res.json();
+      })
+      .then(data => {
+          console.log(data)
+          window.location.href = "/admin";
+      })
+      .catch(err => {
+          console.log(err.message);
+      });
+    }
     
     return ( 
 
@@ -13,7 +44,7 @@ const Admin = () => {
                 <div className="card mb-4">
                 <div className="card-header pb-0">
                     <h6>Tabel Admin</h6>
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal" onClick={insertModal}>
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
@@ -32,26 +63,21 @@ const Admin = () => {
                                 Email
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Password
-                                </th>
-                                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                 Aksi
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
+                            {admin && admin.map((adm) => (
                               <tr>
                                   <td>
                                       <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>{i++}</p>
                                   </td>
                                   <td>
-                                      <p className="text-xs font-weight-bold mb-0">ilham</p>
+                                      <p className="text-xs font-weight-bold mb-0">{adm.nama}</p>
                                   </td>
                                   <td>
-                                      <p className="text-xs font-weight-bold mb-0">ilham@gmail.com</p>
-                                  </td>
-                                  <td>
-                                      <p className="text-xs font-weight-bold mb-0">ilhamss</p>
+                                      <p className="text-xs font-weight-bold mb-0">{adm.email}</p>
                                   </td>
                                   <td className="align-middle">
                                       <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
@@ -63,6 +89,7 @@ const Admin = () => {
                                       </button>
                                   </td>
                               </tr>
+                            ))}
                             </tbody>
                         </table>
                     </div>
@@ -93,6 +120,7 @@ const Admin = () => {
             aria-label="Close"
           />
         </div>
+        <form onSubmit={insert}>
         <div className="modal-body">
             <div className="row align-items-center mt-3">
                 <div className="col-12">
@@ -105,7 +133,9 @@ const Admin = () => {
                     type="text"
                     id="name"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
+                    value={nama} 
+                    onChange={(e) => setNama(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -120,7 +150,9 @@ const Admin = () => {
                     type="email"
                     id="email"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -135,7 +167,9 @@ const Admin = () => {
                     type="text"
                     id="password"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -148,10 +182,11 @@ const Admin = () => {
           >
             Tutup
           </button>
-          <button type="button" className="btn btn-success">
+          <button type="submit" className="btn btn-success">
             Simpan Data Admin
           </button>
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -190,8 +225,9 @@ const Admin = () => {
                     type="text"
                     id="name"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="Rio"
+                    value={nama} 
+                    onChange={(e) => setNama(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -206,8 +242,9 @@ const Admin = () => {
                     type="email"
                     id="email"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="riodewanto@gmail.com"
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                     />
                 </div>
             </div>
@@ -222,8 +259,8 @@ const Admin = () => {
                     type="text"
                     id="password"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="bambangtest"
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
             </div>
@@ -278,8 +315,9 @@ const Admin = () => {
                     type="text"
                     id="name"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="Rio"
+                    value={nama} 
+                    onChange={(e) => setNama(e.target.value)}
+                    required
                     disabled
                     />
                 </div>
@@ -295,8 +333,9 @@ const Admin = () => {
                     type="email"
                     id="email"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="riodewanto@gmail.com"
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                     disabled
                     />
                 </div>
@@ -312,8 +351,8 @@ const Admin = () => {
                     type="text"
                     id="password"
                     className="form-control"
-                    aria-describedby="passwordHelpInline"
-                    value="rio12345"
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)}
                     disabled
                     />
                 </div>

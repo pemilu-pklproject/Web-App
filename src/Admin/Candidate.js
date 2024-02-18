@@ -134,7 +134,6 @@ const Candidate = () => {
             setListProvinsi(data);
             if (kodeProvinsi === null) {
                 setKodeProvinsi(kode_provinsi);
-                loadDapil(idJabatan, kode_provinsi);
                 // loadWilayahKabupatenKota(kode_provinsi);
             }else{
                 // loadWilayahKabupatenKota(kodeProvinsi);
@@ -281,29 +280,21 @@ const Candidate = () => {
             setNoUrut(data.no_urut);
 
             let wilayah = data.kode_wilayah.split('.');
-            console.log(data);
+            wilayah.push(null, null, null);
             console.log(wilayah);
-                
-            if (idJabatan == 1 || idJabatan == 2 || idJabatan == 4 || idJabatan == 5) {
-                setKodeProvinsi(wilayah[0]);
-                setKodeKabKot(null);
-                setKodeKec(null);
-                setKodeDes(null);
-            }else if (idJabatan == 6 || idJabatan == 7 || idJabatan == 8) {
-                setKodeProvinsi(wilayah[0]);
-                setKodeKabKot(wilayah[0] + '.' + wilayah[1]);
-                setKodeKec(null);
-                setKodeDes(null);
-            }else{
-                setKodeProvinsi(wilayah[0]);
-                // console.log('kode prov'+wilayah[0])
-                setKodeKabKot(wilayah[0] + '.' + wilayah[1]);
-                // console.log('kode kota' + wilayah[0] + '.' + wilayah[1])
-                setKodeKec(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2]);
-                // console.log('kode kecamatan'+wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2])
-                setKodeDes(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2] + '.' + wilayah[3]);
-                // console.log('kode kecamatan'+wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2] + '.' + wilayah[3])
-            }
+            
+            setKodeProvinsi(wilayah[0]);
+            console.log('seharusnya ' + wilayah[0]);
+            console.log('malah '+kodeProvinsi);
+            setKodeKabKot(wilayah[0] + '.' + wilayah[1]);
+            console.log('seharusnya ' + wilayah[0] + '.' + wilayah[1]);
+            console.log('malah '+kodeKabKot);
+            setKodeKec(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2]);
+            console.log('seharusnya ' + wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2]);
+            console.log('malah '+kodeKec);
+            setKodeDes(wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2] + '.' + wilayah[3]);
+            console.log('seharusnya ' + wilayah[0] + '.' + wilayah[1] + '.' + wilayah[2] + '.' + wilayah[3]);
+            console.log('malah '+kodeDes);
             
             if (idJabatan == 2 || idJabatan == 5 || idJabatan == 8) {
                 setKodeDapil(data.kode_dapil);
