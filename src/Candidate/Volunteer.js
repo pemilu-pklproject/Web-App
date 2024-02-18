@@ -100,7 +100,6 @@ const Volunteer = () => {
         const url = 'http://localhost:8080/si-pemilu/api/v1/relawan/update/' + id;
         const newVolunteer = { id, nama, email, password, jenis_kelamin, nik, no_hp, id_kandidat, isRelawan, isSaksi};
 
-        console.log(newVolunteer);
         fetch(url, {
             method: 'PUT',
             headers: {"Content-Type": "application/json"},
