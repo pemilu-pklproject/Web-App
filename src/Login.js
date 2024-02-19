@@ -5,7 +5,6 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('admin');
-    const [status, setStatus] = useState('');
     const [user, setUser] = useState(null);
     const history = useHistory();
 
@@ -24,6 +23,7 @@ const Login = () => {
             })
             .then(data => {
                 setUser(data);
+                console.log(data);
             })
             .catch(err => {
                 console.log(err.message);
@@ -40,6 +40,7 @@ const Login = () => {
             })
             .then(data => {
                 setUser(data);
+                console.log(data);
             })
             .catch(err => {
                 console.log(err.message);
@@ -50,8 +51,13 @@ const Login = () => {
     useEffect(() => {
         if (user != null) {
             if (user.status == true) {
-                alert('Login Berhasil');
-                history.push('/dashboardkandidat')
+                if (role == 'admin') {
+                    alert('Login berhasil, selamat datang admin')
+                    history.push('/dashboardadmin')
+                }else{
+                    alert('Login berhasil, selamat datang kandidat')
+                    history.push('/dashboardkandidat')
+                }
             }else{
                 alert(user.msg);
             }
@@ -66,7 +72,6 @@ const Login = () => {
                 <div className="card z-index-0">
                     <div className="card-header text-center">
                         <h5>Silahkan Login</h5>
-                        <h6 className="text-danger">{status}</h6>
                     </div>
                     <div className="card-body">
                     <form onSubmit={login}>
