@@ -1,15 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useFetch from "../useFetch";
+import { useCookies } from 'react-cookie';
 
 const Admin = () => {
     let i = 1;
-
+    const [admin, setAdmin] = useState(null);
     const [id, setId] = useState(null);
     const [nama, setNama] = useState(null);
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const [cookies, setCookie] = useCookies(['access_token']);
 
-    const {data:admin} = useFetch('http://localhost:8080/si-pemilu/api/v1/admin.json');
+    const getAllAdmin = async () =>{
+      const url = 'http://localhost:8080/si-pemilu/api/v1/admin.json';
+      fetch(url, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${cookies.access_token}`
+        }
+        })
+          .then(res => {
+              if (!res.ok) {
+                  throw Error('could not fetch the data for that resource');
+              }
+              return res.json();
+          })
+          .then(data => {
+              setAdmin(data);
+          })
+          .catch(err => {
+              console.log(err.message);
+          });
+      }
+
+      useEffect(() => {
+        getAllAdmin();
+    }, []);
 
     const insertModal = () => {
       setNama('');

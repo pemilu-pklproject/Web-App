@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -7,6 +8,7 @@ const Login = () => {
     const [role, setRole] = useState('admin');
     const [user, setUser] = useState(null);
     const history = useHistory();
+    const [cookies, setCookie] = useCookies(['access_token']);
 
     const login = (e) => {
         e.preventDefault();
@@ -24,6 +26,7 @@ const Login = () => {
             .then(data => {
                 setUser(data);
                 console.log(data);
+                setCookie('access_token', data.access_token)
             })
             .catch(err => {
                 console.log(err.message);
