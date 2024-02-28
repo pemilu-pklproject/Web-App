@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import useFetch from "../useFetch";
 import { useCookies } from 'react-cookie';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Admin = () => {
     let i = 1;
@@ -10,6 +11,7 @@ const Admin = () => {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [cookies, setCookie] = useCookies(['access_token']);
+    const history = useHistory();
 
     const getAllAdmin = async () =>{
       const url = 'http://localhost:8080/si-pemilu/api/v1/admin.json';
@@ -30,6 +32,7 @@ const Admin = () => {
           })
           .catch(err => {
               console.log(err.message);
+              history.push('/')
           });
       }
 
