@@ -1,4 +1,10 @@
+import { useState, useEffect } from 'react';
+import useFetch from "../useFetch";
+
 const Vote = () => {
+    const {data:pemilihan} = useFetch('http://localhost:8080/si-pemilu/api/v1/kandidat/suara/all.json');
+    console.log(pemilihan);
+    let i = 1;
     return ( 
     <div>
         <div className="row">
@@ -16,90 +22,53 @@ const Vote = () => {
                                 No
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Saksi
+                                Kandidat
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Nomor Tps
+                                Jabatan
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Dapil Tps
+                                Wilayah / Dapil
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Total
+                                Total Suara
                                 </th>
-                                <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                {/* <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                 Detail
-                                </th>
+                                </th> */}
                             </tr>
                             </thead>
                             <tbody>
+                            {pemilihan && pemilihan.map((p) => (
                             <tr>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>1</p>
+                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>{i++}</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Joni</p>
+                                    <p className="text-xs font-weight-bold mb-0">{p.nama}</p>
+                                    <p className="text-xs font-weight-bold mb-0">{p.nik}</p>
+                                    <p className="text-xs font-weight-bold mb-0">{p.email}</p>
+                                    <p className="text-xs font-weight-bold mb-0">{p.jenis_kelamin}</p>
+                                </td>
+                                <td>
+                                    <p className="text-xs font-weight-bold mb-0">{p.no_urut}</p>
+                                    <p className="text-xs font-weight-bold mb-0">{p.jbtn.jabatan}</p>
+                                    <p className="text-xs font-weight-bold mb-0">{p.partai}</p>
+                                </td>
+                                <td>
+                                    <p className="text-xs font-weight-bold mb-0">{p.wilayah.nama}</p>
+                                    <p className="text-xs font-weight-bold mb-0">{p.kandidat_dapil && "" + p.kandidat_dapil.nama_dapil}</p>
                                 </td>
                                 <td className="align-middle">
-                                    <p className="text-xs font-weight-bold mb-0">002</p>
+                                    <p className="text-xs font-weight-bold mb-0">{p.kandidat_total[0] ? p.kandidat_total[0].total_suara : "0"}</p>
                                 </td>
-                                <td className="align-middle">
-                                    <p className="text-xs font-weight-bold mb-0">Medan</p>
-                                </td>
-                                <td className="align-middle">
-                                    <p className="text-xs font-weight-bold mb-0">89</p>
-                                </td>
-                                <td className="align-middle">
+                                {/* <td className="align-middle">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal">
                                         <i class="fas fa-list-alt"></i>
                                     </button>
-                                </td>
+                                </td> */}
                             </tr>
-                            <tr>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>2</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Joni</p>
-                                </td>
-                                <td className="align-middle">
-                                    <p className="text-xs font-weight-bold mb-0">001</p>
-                                </td>
-                                <td className="align-middle">
-                                    <p className="text-xs font-weight-bold mb-0">Medan</p>
-                                </td>
-                                <td className="align-middle">
-                                    <p className="text-xs font-weight-bold mb-0">10</p>
-                                </td>
-                                <td className="align-middle">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal">
-                                        <i class="fas fa-list-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>3</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Jono</p>
-                                </td>
-                                <td className="align-middle">
-                                    <p className="text-xs font-weight-bold mb-0">290</p>
-                                </td>
-                                <td className="align-middle">
-                                    <p className="text-xs font-weight-bold mb-0">Medan</p>
-                                </td>
-                                <td className="align-middle">
-                                    <p className="text-xs font-weight-bold mb-0">90</p>
-                                </td>
-                                <td className="align-middle">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal">
-                                        <i class="fas fa-list-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            
+                            ))}
                             </tbody>
                         </table>
                     </div>
@@ -131,6 +100,22 @@ const Vote = () => {
           />
         </div>
         <div className="modal-body">
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <label htmlFor="kandidat" className="col-form-label">
+                    Kandidat :
+                    </label>
+                </div>
+                <div className="col-12">
+                    <input
+                    type="text"
+                    readOnly
+                    className="form-control-plaintext p-2"
+                    id="kandidat"
+                    value="Bambang"
+                    />
+                </div>
+            </div>
             <div className="row align-items-center">
                 <div className="col-12">
                     <label htmlFor="dapil" className="col-form-label">
@@ -223,4 +208,4 @@ const Vote = () => {
     );
 }
  
-export default Vote;
+export default Vote;

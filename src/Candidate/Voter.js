@@ -1,4 +1,44 @@
+import useFetch from "../useFetch";
+import { useState } from 'react';
+
 const Voter = () => {
+    let i =1;
+    const idKandidat = 3;
+    const {data:pemilih} = useFetch('http://localhost:8080/si-pemilu/api/v1/kandidat/pemilih/' + idKandidat + '.json');
+    console.log(pemilih)
+
+    const [nama, setNama] = useState(null);
+    const [nik, setNik] = useState(null);
+    const [jenisKelamin, setJenisKelamin] = useState(null);
+    const [hp, setHp] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [alamat, setAlamat] = useState(null);
+    const [rtRw, setRtRw] = useState(null);
+    const [relawan, setRelawan] = useState(null);
+    const [tps, setTps] = useState(null);
+    const [wilayah, setWilayah] = useState(null);
+
+    const detail = async (idPemilih) =>{
+        const url = 'http://localhost:8080/si-pemilu/api/v1/pemilih/' + idPemilih + '.json';
+        try {
+            const response = await fetch(url);
+            let data = await response.json();
+            data = data[0];
+            
+            setNama(data.nama);
+            setNik(data.nik);
+            setHp(data.no_hp);
+            setJenisKelamin(data.jenis_kelamin);
+            setEmail(data.email);
+            setAlamat(data.alamat);
+            setRtRw(data.rt_rw);
+            setRelawan(data.relawan.nama);
+            setWilayah(data.pemilih_wilayah.nama_provinsi + ', ' + data.pemilih_wilayah.nama_kabupaten + ', ' + data.pemilih_wilayah.nama_kecamatan + ', ' + data.pemilih_wilayah.nama_desa);
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
     return ( 
         <div>
         <div className="row">
@@ -19,7 +59,7 @@ const Voter = () => {
                                 Data Diri
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Data Pemilihan
+                                Relawan
                                 </th>
                                 <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                 Detail
@@ -27,50 +67,28 @@ const Voter = () => {
                             </tr>
                             </thead>
                             <tbody>
+                            {pemilih && pemilih.map((p) => (
                             <tr>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>1</p>
+                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>{i++}</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Roni</p>
-                                    <p className="text-xs text-secondary mb-0">1278823823820</p>
-                                    <p className="text-xs text-secondary mb-0">Laki-Laki</p>
-                                    <p className="text-xs text-secondary mb-0">081388001390</p>
-                                    <p className="text-xs text-secondary mb-0">roni@gmail.com</p>
+                                    <p className="text-xs font-weight-bold mb-0">{p.nama}</p>
+                                    <p className="text-xs text-secondary mb-0">{p.nik}</p>
+                                    <p className="text-xs text-secondary mb-0">{p.jenis_kelamin}</p>
+                                    <p className="text-xs text-secondary mb-0">{p.no_hp}</p>
+                                    <p className="text-xs text-secondary mb-0">{p.email}</p>
                                 </td>
                                 <td>
-                                    <p className="text-xs font-weight-bold mb-0">Joni</p>
-                                    <p className="text-xs text-secondary mb-0">Kota Medan</p>
-                                    <p className="text-xs text-secondary mb-0">ACEH</p>
+                                    <p className="text-xs font-weight-bold mb-0">{p.relawan.nama}</p>
                                 </td>
                                 <td className="align-middle">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal" onClick={() => {detail(p.id)}}>
                                         <i class="fas fa-list-alt"></i>
                                     </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0" style={{marginLeft:'17px'}}>2</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Riko</p>
-                                    <p className="text-xs text-secondary mb-0">1278823023820</p>
-                                    <p className="text-xs text-secondary mb-0">Laki-Laki</p>
-                                    <p className="text-xs text-secondary mb-0">0813729272947</p>
-                                    <p className="text-xs text-secondary mb-0">roki@gmail.com</p>
-                                </td>
-                                <td>
-                                    <p className="text-xs font-weight-bold mb-0">Joni</p>
-                                    <p className="text-xs text-secondary mb-0">Kota Medan</p>
-                                    <p className="text-xs text-secondary mb-0">ACEH</p>
-                                </td>
-                                <td className="align-middle">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detailModal">
-                                        <i class="fas fa-list-alt"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            ))}
                             </tbody>
                         </table>
                     </div>
@@ -104,162 +122,102 @@ const Voter = () => {
         <div className="modal-body">
             <div className="row align-items-center">
                 <div className="col-12">
-                    <label htmlFor="nama" className="col-form-label">
+                    <p className="col-form-label">
                     Nama :
-                    </label>
+                    </p>
                 </div>
                 <div className="col-12">
-                    <input
-                    type="text"
-                    readOnly
-                    className="form-control-plaintext p-2"
-                    id="nama"
-                    value="Boni"
-                    />
+                    <p>{nama}</p>
                 </div>
             </div>
             <div className="row align-items-center">
                 <div className="col-12">
-                    <label htmlFor="nik" className="col-form-label">
+                    <p className="col-form-label">
                     Nomor Induk Kependudukan :
-                    </label>
+                    </p>
                 </div>
                 <div className="col-12">
-                    <input
-                    type="text"
-                    readOnly
-                    className="form-control-plaintext p-2"
-                    id="nik"
-                    value="1278232030029"
-                    />
+                    <p>{nik}</p>
                 </div>
             </div>
             <div className="row align-items-center">
                 <div className="col-12">
-                    <label htmlFor="jeniskelamin" className="col-form-label">
+                    <p className="col-form-label">
                     Jenis Kelamin :
-                    </label>
+                    </p>
                 </div>
                 <div className="col-12">
-                    <input
-                    type="text"
-                    readOnly
-                    className="form-control-plaintext p-2"
-                    id="jeniskelamin"
-                    value="Laki-Laki"
-                    />
+                    <p>{jenisKelamin}</p>
                 </div>
             </div>
             <div className="row align-items-center">
                 <div className="col-12">
-                    <label htmlFor="nohp" className="col-form-label">
+                    <p className="col-form-label">
                     Nomor Hp :
-                    </label>
+                    </p>
                 </div>
                 <div className="col-12">
-                    <input
-                    type="text"
-                    readOnly
-                    className="form-control-plaintext p-2"
-                    id="nohp"
-                    value="0813131980800"
-                    />
+                    <p>{hp}</p>
                 </div>
             </div>
             <div className="row align-items-center">
                 <div className="col-12">
-                    <label htmlFor="email" className="col-form-label">
+                    <p className="col-form-label">
                     Email :
-                    </label>
+                    </p>
                 </div>
                 <div className="col-12">
-                    <input
-                    type="text"
-                    readOnly
-                    className="form-control-plaintext p-2"
-                    id="email"
-                    value="boni@gmail.com"
-                    />
+                    <p>{email}</p>
                 </div>
             </div>
             <div className="row align-items-center">
                 <div className="col-12">
-                    <label htmlFor="alamat" className="col-form-label">
-                    Alamat :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="text"
-                    readOnly
-                    className="form-control-plaintext p-2"
-                    id="alamat"
-                    value="Jalan Kenangan No.12, Kota Medan, Sumatera Utara, 20091"
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center">
-                <div className="col-12">
-                    <label htmlFor="nama" className="col-form-label">
-                    RT / RW :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="text"
-                    readOnly
-                    className="form-control-plaintext p-2"
-                    id="nama"
-                    value="002 / 000"
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center">
-                <div className="col-12">
-                    <label htmlFor="relawan" className="col-form-label">
-                    Relawan :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="text"
-                    readOnly
-                    className="form-control-plaintext p-2"
-                    id="relawan"
-                    value="Joni"
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center">
-                <div className="col-12">
-                    <label htmlFor="tps" className="col-form-label">
-                    Tps :
-                    </label>
-                </div>
-                <div className="col-12">
-                    <input
-                    type="text"
-                    readOnly
-                    className="form-control-plaintext p-2"
-                    id="tps"
-                    value="Tps 002"
-                    />
-                </div>
-            </div>
-            <div className="row align-items-center">
-                <div className="col-12">
-                    <label htmlFor="wilayah" className="col-form-label">
+                    <p className="col-form-label">
                     Wilayah :
-                    </label>
+                    </p>
                 </div>
                 <div className="col-12">
-                    <input
-                    type="text"
-                    readOnly
-                    className="form-control-plaintext p-2"
-                    id="wilayah"
-                    value="ACEH "
-                    />
+                    <p>{wilayah}</p>
+                </div>
+            </div>
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <p className="col-form-label">
+                    Alamat :
+                    </p>
+                </div>
+                <div className="col-12">
+                    <p>{alamat}</p>
+                </div>
+            </div>
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <p className="col-form-label">
+                    RT / RW :
+                    </p>
+                </div>
+                <div className="col-12">
+                    <p>{rtRw}</p>
+                </div>
+            </div>
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <p className="col-form-label">
+                    Relawan :
+                    </p>
+                </div>
+                <div className="col-12">
+                    <p>{relawan}</p>
+                </div>
+            </div>
+            <div className="row align-items-center">
+                <div className="col-12">
+                    <p className="col-form-label">
+                    Tps :
+                    </p>
+                </div>
+                <div className="col-12">
+                    <p>{tps}</p>
                 </div>
             </div>
         </div>
@@ -280,4 +238,4 @@ const Voter = () => {
     );
 }
  
-export default Voter;
+export default Voter;
